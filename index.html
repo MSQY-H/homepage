@@ -3,7 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LJXH - 个人主页</title>
+    <title>LJXH - 主页</title>
+    <meta name="description" content="LJXH 的个人主页，展示 GitHub 项目、博客文章、个人网站与音乐。热爱技术与创造。">
+    <meta name="keywords" content="LJXH, 个人主页, 开发者, 学生, GitHub, 博客, 前端, 开源">
+    <link rel="icon" type="image/x-icon" href="https://ljxh-h.cc.cd/favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="https://ljxh-h.cc.cd/favicon.ico">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ljxh-h.cc.cd/">
+    <meta property="og:title" content="LJXH - 个人主页">
+    <meta property="og:description" content="LJXH 的个人主页，展示 GitHub 项目、博客文章、个人网站与音乐。">
+    <meta property="og:image" content="https://i.ibb.co/6RBCvLHc/avatar.webp">
+    <meta property="og:image:width" content="512">
+    <meta property="og:image:height" content="512">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="LJXH - 个人主页">
+    <meta name="twitter:description" content="LJXH 的个人主页，展示 GitHub 项目、博客文章、个人网站与音乐。">
+    <meta name="twitter:image" content="https://i.ibb.co/6RBCvLHc/avatar.webp">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         :root { --radius: 12px; --font-mono: 'Consolas', 'Menlo', 'SF Mono', 'JetBrains Mono', 'Fira Code', 'Monaco', 'Courier New', monospace; --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Noto Sans SC', sans-serif; }
@@ -207,7 +222,6 @@
                 { icon: 'fa-solid fa-pen-to-square', name: 'HXJL BLOG', url: 'https://ljxh-blog.cc.cd' },
                 { icon: 'fa-solid fa-tree', name: '林间起始页', url: 'https://start.ljxh-blog.cc.cd' },
                 { icon: 'fa-solid fa-note-sticky', name: '湖畔便签', url: 'https://note.ljxh-blog.cc.cd' },
-                { icon: 'fa-solid fa-heart-pulse', name: '心辰心率', url: 'https://heart.ljxh-blog.cc.cd' }
             ],
             profile: { name: 'LJXH', job: '学生', abilities: 'Vibe Coding', website: 'https://www.ljxh-h.cc.cd', email: 'LJXH_H@outlook.com' },
             githubUser: 'MSQY-H',
@@ -248,7 +262,7 @@
 
             const customContainer = document.getElementById('custom-card-container');
             if (CONFIG.customCard?.enabled) {
-                customContainer.style.display = ''; // 恢复显示
+                customContainer.style.display = '';
                 const card = document.createElement('div'); card.className = 'card';
                 if (CONFIG.customCard.title) {
                     const label = document.createElement('p'); label.className = 'section-label';
@@ -259,7 +273,7 @@
                 card.appendChild(contentDiv);
                 customContainer.innerHTML = ''; customContainer.appendChild(card);
             } else {
-                customContainer.style.display = 'none'; // 彻底隐藏，消除多余间距
+                customContainer.style.display = 'none';
             }
 
             window.terminalProfileJson = `{\n  "name": "${CONFIG.profile.name}",\n  "job": "${CONFIG.profile.job}",\n  "abilities": "${CONFIG.profile.abilities}",\n  "website": "${CONFIG.profile.website}",\n  "email": "${CONFIG.profile.email}"\n}`;
