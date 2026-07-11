@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LJXH - 个人主页</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root { --radius: 12px; --font-mono: 'Consolas', 'Menlo', 'SF Mono', 'JetBrains Mono', 'Fira Code', 'Monaco', 'Courier New', monospace; --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Noto Sans SC', sans-serif; }
+        [data-theme="light"] { --theme: #0a59f7; --text-primary: #1a1a2e; --text-secondary: #555; --text-muted: #888; --card-bg: rgba(255,255,255,0.72); --icon-black: #1a1a2e; --terminal-bg: rgba(30,31,38,0.92); --terminal-text: #d4d7dc; --terminal-prompt-color: #8be9a8; --link-btn-bg: #e9ecf2; --link-btn-text: #1a1a2e; --link-btn-hover-bg: #0a59f7; --link-btn-hover-text: #ffffff; --mini-card-bg: rgba(245,246,249,0.75); --mini-card-hover-bg: rgba(238,242,251,0.85); --meta-tag-bg: rgba(221,227,237,0.8); --meta-tag-text: #1a1a2e; --star-color: #b8860b; --float-btn-bg: rgba(255,255,255,0.8); --float-btn-text: #1a1a2e; --float-btn-border: #d5d9e0; --loading-color: #1a1a2e; --header-bg: rgba(255,255,255,0.7); --site-card-bg: rgba(245,246,249,0.75); --title-glass-bg: rgba(255,255,255,0); }
+        [data-theme="dark"] { --theme: #4f8cff; --text-primary: #e4e6ea; --text-secondary: #b0b3bd; --text-muted: #888b96; --card-bg: rgba(33,35,43,0.72); --icon-black: #e4e6ea; --terminal-bg: rgba(13,15,20,0.9); --terminal-text: #c9ccd4; --terminal-prompt-color: #5cff7e; --link-btn-bg: #2a2d36; --link-btn-text: #e4e6ea; --link-btn-hover-bg: #4f8cff; --link-btn-hover-text: #ffffff; --mini-card-bg: rgba(42,45,54,0.75); --mini-card-hover-bg: rgba(51,55,66,0.85); --meta-tag-bg: rgba(58,61,71,0.8); --meta-tag-text: #d5d7dc; --star-color: #f0c674; --float-btn-bg: rgba(42,45,54,0.8); --float-btn-text: #e4e6ea; --float-btn-border: #4a4d57; --loading-color: #e4e6ea; --header-bg: rgba(33,35,43,0.7); --site-card-bg: rgba(42,45,54,0.75); --title-glass-bg: rgba(33,35,43,0); }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: var(--font-sans); background-color: #eef1f6; color: var(--text-primary); line-height: 1.6; min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 0 1rem 1rem 1rem; background-size: cover; background-attachment: fixed; background-position: center; transition: background-color 0.3s, color 0.3s; }
+        [data-theme="light"] body { background-image: linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), url('https://i.ibb.co/j9dDJWWW/m2.webp'); }
+        @media (min-width: 768px) { [data-theme="light"] body { background-image: linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), url('https://i.ibb.co/b50NHB9G/d4.webp'); } }
+        [data-theme="dark"] body { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://i.ibb.co/j9dDJWWW/m2.webp'); }
+        @media (min-width: 768px) { [data-theme="dark"] body { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://i.ibb.co/b50NHB9G/d4.webp'); } }
+        .sticky-header { position:fixed;top:0;left:0;width:100%;height:64px;background:var(--header-bg);backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);box-shadow:0 1px 4px rgba(0,0,0,0.06);display:flex;align-items:center;justify-content:space-between;padding:0 1.5rem;z-index:999;opacity:0;filter:blur(6px);transform:translateY(-10px);transition:opacity 0.35s ease,filter 0.35s ease,transform 0.35s ease;pointer-events:none; }
+        .sticky-header.show{opacity:1;filter:blur(0);transform:translateY(0);pointer-events:auto}
+        .header-left{display:flex;align-items:center;gap:12px}
+        .header-left .avatar-small{width:40px;height:40px;border-radius:10px;overflow:hidden;background:#dde3ed;flex-shrink:0}
+        .header-left .avatar-small img{width:100%;height:100%;object-fit:cover;display:block}
+        .header-left .name-small{font-size:1.2rem;font-weight:700;color:var(--text-primary);white-space:nowrap}
+        .header-right{position:relative}
+        .menu-toggle-btn{width:40px;height:40px;border-radius:10px;background:var(--link-btn-bg);border:none;color:var(--link-btn-text);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:1.2rem;transition:all 0.2s}
+        .menu-toggle-btn:hover{background:var(--link-btn-hover-bg);color:var(--link-btn-hover-text)}
+        .menu-dropdown{position:absolute;top:calc(100% + 16px);right:0;background:var(--card-bg);backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);border-radius:var(--radius);padding:0.4rem;display:flex;flex-direction:column;gap:0.2rem;box-shadow:0 8px 24px rgba(0,0,0,0.15);opacity:0;visibility:hidden;transform:scale(0.9);transition:all 0.25s cubic-bezier(0.175,0.885,0.32,1.275);z-index:1000;min-width:130px}
+        .menu-dropdown.show{opacity:1;visibility:visible;transform:scale(1)}
+        .menu-dropdown a{display:flex;align-items:center;gap:10px;padding:0.55rem 0.9rem;border-radius:10px;color:var(--link-btn-text);font-size:0.9rem;font-weight:500;text-decoration:none;transition:all 0.2s;white-space:nowrap}
+        .menu-dropdown a i{font-size:1.1rem;width:20px;text-align:center}
+        .menu-dropdown a:hover{background:var(--link-btn-hover-bg);color:var(--link-btn-hover-text)}
+        .container{width:100%;max-width:800px;display:flex;flex-direction:column;gap:1rem;margin-top:0}
+        .card{background:var(--card-bg);backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);border-radius:var(--radius);padding:1rem;border:none;transition:background 0.3s,color 0.3s}
+        .hero-header{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;width:100%;padding:2rem 1rem 1rem 1rem;background:transparent}
+        .hero-content{display:flex;flex-direction:column;align-items:center;text-align:center;margin-bottom:18vh}
+        .avatar-wrapper{width:90px;height:90px;border-radius:var(--radius);overflow:hidden;background:#dde3ed;margin-bottom:1rem}
+        .avatar-wrapper img{width:100%;height:100%;object-fit:cover;display:block}
+        .lazy-img{filter:blur(10px);transition:filter 0.4s ease}
+        .lazy-img.loaded{filter:blur(0)}
+        .hero-content h1{font-size:2rem;font-weight:700;color:var(--text-primary);line-height:1.2;margin-bottom:0.5rem;display:inline-block;padding:0.25rem;border-radius:10px;background:var(--title-glass-bg);backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px)}
+        .hero-content .tagline{font-size:0.9rem;color:var(--text-secondary);margin-bottom:1.2rem;display:inline-block;padding:0.25rem;border-radius:8px;background:var(--title-glass-bg);backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px)}
+        .icon-link-bar{display:flex;gap:0.25rem;background:var(--link-btn-bg);border-radius:var(--radius);padding:0.25rem;width:fit-content;margin:0 auto}
+        .icon-link-bar a{display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:8px;color:var(--link-btn-text);font-size:1.2rem;transition:all 0.2s ease;text-decoration:none}
+        .icon-link-bar a:hover{background:var(--link-btn-hover-bg);color:var(--link-btn-hover-text)}
+        .scroll-down{margin-top:1rem;color:var(--text-muted);font-size:1.5rem;animation:bounce 2s infinite;cursor:pointer;text-decoration:none;transition:color 0.2s;align-self:center}
+        .scroll-down:hover{color:var(--theme)}
+        @keyframes bounce{0%,20%,50%,80%,100%{transform:translateY(0)}40%{transform:translateY(-8px)}60%{transform:translateY(-4px)}}
+        .welcome-card{display:flex;align-items:stretch;gap:1.5rem;padding:1.2rem 1.5rem}
+        .welcome-left{display:flex;align-items:center;flex-shrink:0}
+        .welcome-left #greeting-text{font-size:2.6rem;font-weight:700;line-height:1;color:var(--text-primary);white-space:nowrap;transition:color 0.3s}
+        .welcome-right{display:flex;flex-direction:column;justify-content:center;gap:0.3rem}
+        .welcome-location-line{font-size:1.1rem;font-weight:500;color:var(--text-primary);white-space:nowrap}
+        .welcome-emoji-line{font-size:1rem;color:var(--text-secondary);white-space:nowrap}
+        .location-highlight{color:var(--theme);font-weight:700;transition:color 0.3s,filter 0.3s,opacity 0.3s}
+        .terminal-card{background:var(--terminal-bg);backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);border-radius:var(--radius);overflow:hidden;border:none}
+        .terminal-topbar{display:flex;align-items:center;gap:8px;padding:1rem;background:rgba(0,0,0,0.2)}
+        .terminal-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0}
+        .terminal-dot.red{background:#ff5f56}.terminal-dot.yellow{background:#ffbd2e}.terminal-dot.green{background:#27c93f}
+        .terminal-body{padding:1rem;font-family:var(--font-mono);font-size:0.85rem;color:var(--terminal-text);line-height:1.65;display:flex;flex-direction:column;gap:2px;transition:height 0.3s ease;overflow:hidden}
+        .terminal-line{display:flex;flex-wrap:wrap;align-items:baseline;white-space:pre-wrap;word-break:break-word}
+        .terminal-prompt{color:var(--terminal-prompt-color);font-weight:600;user-select:none;white-space:nowrap;margin-right:4px}
+        .terminal-command{color:#fff}.terminal-output{color:var(--terminal-text);opacity:0.9;white-space:pre-wrap}
+        .terminal-cursor{display:inline-block;width:8px;height:1em;background:#c4c9d4;margin-left:2px;vertical-align:middle;animation:blink-cursor 1s step-end infinite;border-radius:1px}
+        @keyframes blink-cursor{0%,100%{opacity:1}50%{opacity:0}}
+        .gh-chart-wrapper{overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;padding:4px 0;scrollbar-width:thin;scrollbar-color:#c4cdd8 transparent;border-radius:8px}
+        .gh-chart-wrapper::-webkit-scrollbar{height:5px}
+        .gh-chart-wrapper::-webkit-scrollbar-track{background:transparent;border-radius:10px}
+        .gh-chart-wrapper::-webkit-scrollbar-thumb{background:#c4cdd8;border-radius:10px}
+        .gh-chart-wrapper img{display:block;min-width:720px;max-width:none;height:auto;border-radius:8px}
+        .section-label{font-size:0.76rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:var(--text-muted);margin-bottom:12px;display:flex;align-items:center;gap:7px}
+        .section-label i{color:var(--icon-black);font-size:0.85rem}
+        .cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:12px;filter:blur(8px);opacity:0;transition:filter 0.4s ease,opacity 0.4s ease}
+        .cards-grid.revealed{filter:blur(0);opacity:1}
+        .mini-card{background:var(--mini-card-bg);border-radius:var(--radius);padding:1rem;border:none;transition:all 0.22s ease;display:flex;flex-direction:column;gap:10px;text-decoration:none;color:inherit;cursor:pointer}
+        .mini-card:hover{background:var(--mini-card-hover-bg);transform:translateY(-2px)}
+        .mini-card h3{font-size:0.95rem;font-weight:600;color:var(--text-primary);line-height:1.3;display:flex;align-items:center;gap:8px}
+        .mini-card h3 i{color:var(--icon-black);flex-shrink:0;width:18px;text-align:center}
+        .mini-card .card-desc{font-size:0.82rem;color:var(--text-secondary);line-height:1.5;flex:1;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+        .mini-card .card-meta{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:0.74rem;color:var(--text-muted)}
+        .meta-tag{display:inline-flex;align-items:center;gap:5px;font-size:0.72rem;font-weight:600;color:var(--meta-tag-text);background:var(--meta-tag-bg);padding:4px 10px;border-radius:20px;border:none}
+        .lang-dot{width:9px;height:9px;border-radius:50%;display:inline-block}
+        .star-count{display:inline-flex;align-items:center;gap:4px;color:var(--star-color);font-weight:600;font-size:0.74rem}
+        .star-count i{color:var(--star-color)}
+        .music-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;filter:blur(8px);opacity:0;transition:filter 0.4s ease,opacity 0.4s ease}
+        .music-grid.revealed{filter:blur(0);opacity:1}
+        .music-item{background:var(--mini-card-bg);border-radius:var(--radius);padding:1rem;text-decoration:none;color:inherit;display:flex;align-items:center;gap:12px;transition:background 0.22s ease,transform 0.22s ease;cursor:pointer}
+        .music-item:hover{background:var(--mini-card-hover-bg);transform:translateY(-2px)}
+        .music-cover{width:56px;height:56px;border-radius:8px;object-fit:cover;flex-shrink:0}
+        .music-info{display:flex;flex-direction:column;gap:4px;overflow:hidden}
+        .music-title{font-weight:600;font-size:0.9rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--text-primary)}
+        .music-artist{font-size:0.78rem;color:var(--text-secondary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+        .site-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+        .site-item{background:var(--site-card-bg);backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);border-radius:var(--radius);padding:1.2rem 0.8rem;text-decoration:none;color:var(--text-primary);display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;transition:all 0.2s ease;font-weight:500;font-size:0.88rem}
+        .site-item i{color:var(--theme);font-size:1.5rem;width:24px;height:24px;display:flex;align-items:center;justify-content:center}
+        .site-item:hover{background:var(--mini-card-hover-bg);transform:translateY(-2px)}
+        @media (max-width:600px){.site-grid{grid-template-columns:repeat(2,1fr)}.site-item{padding:1rem 0.5rem}}
+        .more-link{display:inline-flex;align-items:center;gap:6px;margin-top:12px;font-size:0.85rem;font-weight:600;color:var(--theme);text-decoration:none;transition:opacity 0.2s}
+        .more-link:hover{opacity:0.8}.more-link i{font-size:0.8rem}
+        .loading-spinner{display:flex;align-items:center;gap:10px;color:var(--text-muted);font-size:0.86rem;padding:12px 0}
+        .loading-spinner svg{width:24px;height:24px;animation:spin 0.8s linear infinite;color:var(--loading-color)}
+        @keyframes spin{to{transform:rotate(360deg)}}
+        .error-msg{color:#c0392b;font-size:0.84rem;padding:8px 0;display:flex;align-items:center;gap:6px}
+        .empty-msg{color:var(--text-muted);font-size:0.86rem;padding:8px 0}
+        .empty-msg a{color:var(--theme);text-decoration:none;font-weight:500}
+        .floating-buttons{position:fixed;bottom:1.5rem;right:1.5rem;display:flex;flex-direction:column;gap:10px;z-index:1000}
+        .float-btn{width:44px;height:44px;border-radius:50%;background:var(--float-btn-bg);backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);border:1px solid var(--float-btn-border);color:var(--float-btn-text);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:1.1rem;transition:all 0.25s}
+        .float-btn:hover{background:var(--theme);color:#fff;border-color:var(--theme)}
+        @media (max-width:600px){
+            .hero-content{margin-bottom:12vh}.hero-content h1{font-size:1.6rem}.avatar-wrapper{width:75px;height:75px}
+            .cards-grid,.music-grid{grid-template-columns:1fr}.terminal-body{font-size:0.78rem}
+            .floating-buttons{bottom:1rem;right:1rem;gap:8px}.float-btn{width:40px;height:40px;font-size:1rem}
+            .welcome-card{flex-direction:column;align-items:center;text-align:center;gap:0.8rem}
+            .welcome-left #greeting-text{font-size:2rem}.welcome-right{align-items:center}
+            .sticky-header{padding:0 1rem;height:56px}.header-left .avatar-small{width:34px;height:34px}
+            .header-left .name-small{font-size:1rem}.menu-toggle-btn{width:36px;height:36px}
+            .menu-dropdown{min-width:120px;right:-8px}.menu-dropdown a{padding:0.5rem 0.7rem;font-size:0.85rem}
+            .site-item{padding:0.9rem 0.5rem}
+        }
+    </style>
+</head>
+<body>
+    <header class="sticky-header" id="sticky-header">
+        <div class="header-left">
+            <div class="avatar-small"><img id="header-avatar" src="" alt="" width="40" height="40"></div>
+            <span class="name-small" id="header-name"></span>
+        </div>
+        <div class="header-right">
+            <button class="menu-toggle-btn" id="menu-toggle" aria-label="菜单"><i class="fa-solid fa-link"></i></button>
+            <div class="menu-dropdown" id="menu-dropdown"></div>
+        </div>
+    </header>
+
+    <header class="hero-header">
+        <div class="hero-content">
+            <div class="avatar-wrapper">
+                <img id="hero-avatar" src="" alt="" width="90" height="90" class="lazy-img">
+            </div>
+            <h1 id="hero-name"></h1>
+            <p class="tagline" id="hero-tagline"></p>
+            <div class="icon-link-bar" id="hero-links"></div>
+        </div>
+        <a href="#welcome-card" class="scroll-down" aria-label="向下滚动"><i class="fa-solid fa-chevron-down"></i></a>
+    </header>
+
+    <div class="container">
+        <div class="card welcome-card" id="welcome-card">
+            <div class="welcome-left"><span id="greeting-text">加载中</span></div>
+            <div class="welcome-right">
+                <div class="welcome-location-line">来自 <span class="location-highlight" id="location-span">远方</span> 的朋友</div>
+                <div class="welcome-emoji-line"><span class="greeting-emoji">(∠・ω< )⌒☆</span></div>
+            </div>
+        </div>
+
+        <div class="card">
+            <p class="section-label"><i class="fa-solid fa-map-pin"></i> 个人网站</p>
+            <div class="site-grid" id="sites-container"></div>
+        </div>
+
+        <div id="custom-card-container"></div>
+
+        <div class="terminal-card">
+            <div class="terminal-topbar"><span class="terminal-dot red"></span><span class="terminal-dot yellow"></span><span class="terminal-dot green"></span></div>
+            <div class="terminal-body" id="terminal-body" style="height:auto;"></div>
+        </div>
+
+        <div class="card">
+            <p class="section-label"><i class="fa-solid fa-chart-bar"></i> GitHub 贡献图</p>
+            <div class="gh-chart-wrapper" id="gh-wrapper">
+                <img id="gh-chart-img" src="" alt="GitHub 贡献图" class="lazy-img">
+                <span class="error-msg" style="display:none;"><i class="fa-solid fa-triangle-exclamation"></i> 贡献图暂时无法加载</span>
+            </div>
+        </div>
+
+        <div class="card">
+            <p class="section-label"><i class="fa-solid fa-code"></i> 项目</p>
+            <div id="projects-container"><div class="loading-spinner"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><rect width="24" height="24" opacity="0"/><g fill="currentColor"><path d="M12 7.13..."/></g></svg> 正在加载项目...</div></div>
+        </div>
+
+        <div class="card">
+            <p class="section-label"><i class="fa-regular fa-newspaper"></i> 文章</p>
+            <div id="articles-container"><div class="loading-spinner"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><rect width="24" height="24" opacity="0"/><g fill="currentColor"><path d="M12 7.13..."/></g></svg> 正在加载文章...</div></div>
+        </div>
+
+        <div class="card">
+            <p class="section-label"><i class="fa-solid fa-music"></i> 最近听歌</p>
+            <div id="music-container"><div class="loading-spinner"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><rect width="24" height="24" opacity="0"/><g fill="currentColor"><path d="M12 7.13..."/></g></svg> 正在加载听歌列表...</div></div>
+        </div>
+    </div>
+
+    <div class="floating-buttons">
+        <button class="float-btn" id="theme-toggle" title="切换主题"><i class="fa-solid fa-moon" id="theme-icon"></i></button>
+        <button class="float-btn" id="back-to-top" title="回到顶部"><i class="fa-solid fa-arrow-up"></i></button>
+    </div>
+
+    <script>
+        const CONFIG = {
+            name: 'LJXH',
+            avatar: 'https://i.ibb.co/6RBCvLHc/avatar.webp',
+            tagline: 'NVIDIA GeForce RTX 5060 Ti',
+            links: [
+                { icon: 'fa-brands fa-github', url: 'https://github.com/MSQY-H', title: 'GitHub' },
+                { icon: 'fa-solid fa-globe', url: 'https://www.ljxh-h.cc.cd', title: '博客' },
+                { icon: 'fa-solid fa-envelope', url: 'mailto:LJXH_H@outlook.com', title: '邮箱' }
+            ],
+            sites: [
+                { icon: 'fa-solid fa-blog', name: '博客', url: 'https://www.ljxh-h.cc.cd' },
+                { icon: 'fa-solid fa-pen-to-square', name: 'HXJL BLOG', url: 'https://ljxh-blog.cc.cd' },
+                { icon: 'fa-solid fa-tree', name: '林间起始页', url: 'https://start.ljxh-blog.cc.cd' },
+                { icon: 'fa-solid fa-note-sticky', name: '湖畔便签', url: 'https://note.ljxh-blog.cc.cd' },
+                { icon: 'fa-solid fa-heart-pulse', name: '心辰心率', url: 'https://heart.ljxh-blog.cc.cd' }
+            ],
+            profile: { name: 'LJXH', job: '学生', abilities: 'Vibe Coding', website: 'https://www.ljxh-h.cc.cd', email: 'LJXH_H@outlook.com' },
+            githubUser: 'MSQY-H',
+            ghChartBase: 'http://ghchart.rshah.org/',
+            songs: [
+                { title:'夜曲', artist:'周杰伦', url:'https://music.apple.com/cn/song/%E5%A4%9C%E6%9B%B2/536009642', cover:'https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/9e/35/ad/9e35ad1e-749e-75b6-0539-1e80cea1817b/JAY11.jpg/592x592bf.webp' },
+                { title:'Haltija', artist:'Etherwood', url:'https://music.apple.com/cn/song/haltija/1686229873', cover:'https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/bf/7f/da/bf7fdaa0-eff2-c65c-e807-914e9f73f259/cover.jpg/360x360bb.webp' },
+                { title:'风屿', artist:'闫东炜', url:'https://music.apple.com/cn/song/%E9%A3%8E%E5%B1%BF/1472231603', cover:'https://is1-ssl.mzstatic.com/image/thumb/Music113/v4/4e/a4/5c/4ea45c20-cd12-fd4e-81b9-2eb3de05bfee/cover.jpg/360x360bb.webp' }
+            ],
+            customCard: { enabled: false, title: '📌 自定义内容', content: '可以在这里写任意 HTML 内容。' }
+        };
+
+        function initLazyImages() {
+            document.querySelectorAll('.lazy-img').forEach(img => {
+                if (img.complete && img.naturalWidth > 0) img.classList.add('loaded');
+                else { img.addEventListener('load', () => img.classList.add('loaded'), { once: true }); img.addEventListener('error', () => img.classList.add('loaded'), { once: true }); }
+            });
+            const ghImg = document.getElementById('gh-chart-img');
+            if (ghImg) {
+                const ghWrapper = document.getElementById('gh-wrapper');
+                const scrollRight = () => { if (ghWrapper) ghWrapper.scrollLeft = ghWrapper.scrollWidth; };
+                if (ghImg.complete && ghImg.naturalWidth > 0) scrollRight();
+                else ghImg.addEventListener('load', scrollRight, { once: true });
+                window.addEventListener('resize', scrollRight);
+            }
+        }
+
+        function applyConfig() {
+            document.getElementById('hero-name').textContent = CONFIG.name;
+            document.getElementById('header-name').textContent = CONFIG.name;
+            document.getElementById('hero-tagline').textContent = CONFIG.tagline;
+            document.getElementById('hero-avatar').src = CONFIG.avatar;
+            document.getElementById('header-avatar').src = CONFIG.avatar;
+            document.getElementById('hero-links').innerHTML = CONFIG.links.map(l => `<a href="${l.url}" target="_blank" rel="noopener" title="${l.title}"><i class="${l.icon}"></i></a>`).join('');
+            document.getElementById('menu-dropdown').innerHTML = CONFIG.links.map(l => `<a href="${l.url}" target="_blank" rel="noopener"><i class="${l.icon}"></i> ${l.title}</a>`).join('');
+            document.getElementById('sites-container').innerHTML = CONFIG.sites.map(s => `<a href="${s.url}" target="_blank" rel="noopener" class="site-item"><i class="${s.icon}"></i> <span>${s.name}</span></a>`).join('');
+            document.getElementById('gh-chart-img').src = CONFIG.ghChartBase + CONFIG.githubUser;
+
+            const customContainer = document.getElementById('custom-card-container');
+            if (CONFIG.customCard?.enabled) {
+                customContainer.style.display = ''; // 恢复显示
+                const card = document.createElement('div'); card.className = 'card';
+                if (CONFIG.customCard.title) {
+                    const label = document.createElement('p'); label.className = 'section-label';
+                    label.innerHTML = `<i class="fa-solid fa-pen-to-square"></i> ${CONFIG.customCard.title}`;
+                    card.appendChild(label);
+                }
+                const contentDiv = document.createElement('div'); contentDiv.innerHTML = CONFIG.customCard.content;
+                card.appendChild(contentDiv);
+                customContainer.innerHTML = ''; customContainer.appendChild(card);
+            } else {
+                customContainer.style.display = 'none'; // 彻底隐藏，消除多余间距
+            }
+
+            window.terminalProfileJson = `{\n  "name": "${CONFIG.profile.name}",\n  "job": "${CONFIG.profile.job}",\n  "abilities": "${CONFIG.profile.abilities}",\n  "website": "${CONFIG.profile.website}",\n  "email": "${CONFIG.profile.email}"\n}`;
+            setTimeout(initLazyImages, 0);
+        }
+
+        (() => {
+            applyConfig();
+            const html = document.documentElement;
+            const themeToggle = document.getElementById('theme-toggle');
+            const themeIcon = document.getElementById('theme-icon');
+            const setTheme = (t) => {
+                const update = () => {
+                    html.setAttribute('data-theme', t);
+                    localStorage.setItem('ljxh-theme', t);
+                    themeIcon.className = t === 'dark' ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+                };
+                if (document.startViewTransition) document.startViewTransition(() => update());
+                else update();
+            };
+            setTheme(localStorage.getItem('ljxh-theme') || 'light');
+            themeToggle.addEventListener('click', () => setTheme(html.getAttribute('data-theme') === 'light' ? 'dark' : 'light'));
+            document.getElementById('back-to-top').addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+            const stickyHeader = document.getElementById('sticky-header');
+            let ticking = false;
+            window.addEventListener('scroll', () => {
+                if (!ticking) { window.requestAnimationFrame(() => { stickyHeader.classList.toggle('show', window.scrollY > 100); ticking = false; }); ticking = true; }
+            });
+
+            const menuToggle = document.getElementById('menu-toggle'), menuDropdown = document.getElementById('menu-dropdown');
+            menuToggle.addEventListener('click', (e) => { e.stopPropagation(); menuDropdown.classList.toggle('show'); });
+            document.addEventListener('click', (e) => { if (!menuToggle.contains(e.target) && !menuDropdown.contains(e.target)) menuDropdown.classList.remove('show'); });
+
+            function updateGreeting() {
+                const hour = new Date().getHours();
+                document.getElementById('greeting-text').textContent = hour<6?'凌晨好':hour<9?'早上好':hour<12?'上午好':hour<14?'中午好':hour<18?'下午好':'晚上好';
+            }
+            updateGreeting(); setInterval(updateGreeting, 60000);
+
+            async function updateLocation() {
+                const span = document.getElementById('location-span');
+                try {
+                    const resp = await fetch('https://www.loliapi.com/getip/', { signal: AbortSignal.timeout(5000) });
+                    const data = await resp.json();
+                    if (data?.city) {
+                        span.style.transition = 'filter 0.3s ease, opacity 0.3s ease';
+                        span.style.filter = 'blur(4px)'; span.style.opacity = '0.6';
+                        setTimeout(() => { span.textContent = data.city; span.style.filter = 'blur(0)'; span.style.opacity = '1'; }, 200);
+                    }
+                } catch (e) { console.warn('IP定位失败', e); }
+            }
+            updateLocation();
+
+            let timeInterval;
+            function updateClock(span) {
+                span.textContent = new Date().toLocaleString('zh-CN', { year:'numeric',month:'2-digit',day:'2-digit',weekday:'long',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false,timeZoneName:'short' }).replace(/\//g,'-');
+            }
+
+            function runTerminal() {
+                const body = document.getElementById('terminal-body'); body.innerHTML = '';
+                const updateHeight = () => { body.style.height = body.scrollHeight + 'px'; };
+                const addLine = (c='') => { const l = document.createElement('div'); l.className = 'terminal-line ' + c; body.appendChild(l); updateHeight(); return l; };
+                const l1=addLine(); const p1=document.createElement('span');p1.className='terminal-prompt';p1.textContent='user@ljxh:~$ ';l1.appendChild(p1); const cmd1=document.createElement('span');cmd1.className='terminal-command';cmd1.textContent='cat profile.json';l1.appendChild(cmd1);updateHeight();
+                const out1=addLine('terminal-output');out1.textContent=window.terminalProfileJson;updateHeight();
+                const l2=addLine(); const p2=document.createElement('span');p2.className='terminal-prompt';p2.textContent='user@ljxh:~$ ';l2.appendChild(p2); const cmd2=document.createElement('span');cmd2.className='terminal-command';cmd2.textContent='date';l2.appendChild(cmd2);updateHeight();
+                const out2=addLine('terminal-output');updateClock(out2);timeInterval=setInterval(()=>updateClock(out2),1000);updateHeight();
+                const l3=addLine(); const p3=document.createElement('span');p3.className='terminal-prompt';p3.textContent='user@ljxh:~$ ';l3.appendChild(p3); const c3=document.createElement('span');c3.className='terminal-cursor';l3.appendChild(c3);updateHeight();
+            }
+
+            function revealLater(grid, delay=800) { setTimeout(() => { if (grid) grid.classList.add('revealed'); }, delay); }
+
+            async function loadProjects() {
+                const container = document.getElementById('projects-container');
+                try {
+                    const resp = await fetch(`https://api.github.com/users/${CONFIG.githubUser}/repos?sort=updated&per_page=6&type=owner`, { headers:{'Accept':'application/vnd.github.v3+json'}, signal:AbortSignal.timeout?AbortSignal.timeout(8000):undefined });
+                    if (!resp.ok) throw new Error();
+                    const repos = await resp.json();
+                    let own = repos.filter(r => !r.fork); if (own.length < 3) own = repos.slice(0,3);
+                    const show = own.slice(0,3);
+                    const langColors = { JavaScript:'#f0db4f', TypeScript:'#3178c6', Python:'#3572A5', Java:'#b07219', Go:'#00ADD8', Rust:'#dea584', 'C++':'#f34b7d', C:'#555555', HTML:'#e34c26', CSS:'#563d7c', Vue:'#41b883' };
+                    let html = '<div class="cards-grid">';
+                    show.forEach(r => { const desc=r.description||'暂无描述';const lang=r.language||'Unknown';const color=langColors[lang]||'#6e7681';const stars=r.stargazers_count||0;
+                        html += `<a href="${r.html_url}" target="_blank" rel="noopener" class="mini-card"><h3><i class="fa-solid fa-code"></i> ${escapeHTML(r.name)}</h3><p class="card-desc">${escapeHTML(desc)}</p><div class="card-meta"><span class="meta-tag"><span class="lang-dot" style="background:${color};"></span> ${escapeHTML(lang)}</span>${stars?`<span class="star-count"><i class="fa-solid fa-star"></i> ${stars}</span>`:''}</div></a>`; });
+                    html += '</div><a href="https://github.com/MSQY-H?tab=repositories" target="_blank" rel="noopener" class="more-link">查看更多项目 <i class="fa-solid fa-arrow-right"></i></a>';
+                    container.innerHTML = html; revealLater(container.querySelector('.cards-grid'), 800);
+                } catch { container.innerHTML = '<p class="error-msg"><i class="fa-solid fa-circle-exclamation"></i> 暂时无法加载项目</p>'; }
+            }
+
+            async function loadArticles() {
+                const container = document.getElementById('articles-container');
+                const rssUrl = 'https://www.ljxh-h.cc.cd/rss2.xml';
+                const apiUrl = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(rssUrl);
+                const render = (items) => {
+                    if (!items.length) { container.innerHTML = '<p class="empty-msg">暂无文章，访问<a href="https://www.ljxh-h.cc.cd" target="_blank">博客</a></p>'; return; }
+                    const show = items.slice(0,3); let html = '<div class="cards-grid">';
+                    show.forEach(item => { const title=item.title||'无标题';const link=item.link||'#';const date=formatDate(item.pubDate);let desc=item.description?stripHTML(item.description).slice(0,100)+'...':'阅读文章';
+                        html += `<a href="${link}" target="_blank" rel="noopener" class="mini-card"><h3><i class="fa-regular fa-file-lines"></i> ${escapeHTML(title)}</h3><p class="card-desc">${escapeHTML(desc)}</p><div class="card-meta"><span class="meta-tag"><i class="fa-regular fa-calendar"></i> ${date}</span></div></a>`; });
+                    html += '</div><a href="https://www.ljxh-h.cc.cd" target="_blank" rel="noopener" class="more-link">查看更多文章 <i class="fa-solid fa-arrow-right"></i></a>';
+                    container.innerHTML = html; revealLater(container.querySelector('.cards-grid'), 800);
+                };
+                try { const resp = await fetch(apiUrl, { signal: AbortSignal.timeout?AbortSignal.timeout(8000):undefined }); if (resp.ok) { const data = await resp.json(); if (data.status==='ok' && data.items?.length) { render(data.items); return; } } } catch {}
+                try { const resp = await fetch(rssUrl, { signal: AbortSignal.timeout?AbortSignal.timeout(6000):undefined }); if (resp.ok) { const xml = await resp.text(); const items = parseRSS(xml); if (items.length) { render(items); return; } } } catch {}
+                container.innerHTML = '<p class="error-msg"><i class="fa-solid fa-circle-exclamation"></i> 无法加载文章</p>';
+            }
+
+            function loadMusic() {
+                const container = document.getElementById('music-container');
+                let html = '<div class="music-grid">';
+                CONFIG.songs.forEach(s => html += `<a href="${s.url}" target="_blank" rel="noopener" class="music-item"><img src="${s.cover}" alt="${s.title}" class="music-cover lazy-img" onerror="this.onerror=null;this.style.background='#dde3ed';"><div class="music-info"><span class="music-title">${escapeHTML(s.title)}</span><span class="music-artist">${escapeHTML(s.artist)}</span></div></a>`);
+                html += '</div>'; container.innerHTML = html;
+                initLazyImages();
+                revealLater(container.querySelector('.music-grid'), 600);
+            }
+
+            function parseRSS(xml) { const items=[];const regex=/<item>([\s\S]*?)<\/item>/gi;let m;while((m=regex.exec(xml))!==null){const c=m[1];items.push({title:(c.match(/<title>([\s\S]*?)<\/title>/i)||[])[1]?.trim()||'无标题',link:(c.match(/<link>([\s\S]*?)<\/link>/i)||[])[1]?.trim()||'#',pubDate:(c.match(/<pubDate>([\s\S]*?)<\/pubDate>/i)||[])[1]?.trim()||'',description:(c.match(/<description>([\s\S]*?)<\/description>/i)||[])[1]?.trim()||''});}return items; }
+            function formatDate(str) { if(!str) return '----'; try { const d=new Date(str); if(isNaN(d.getTime())) return str.slice(0,10); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; } catch { return str.slice(0,10); } }
+            function stripHTML(html) { const d=document.createElement('div'); d.innerHTML=html; return d.textContent||''; }
+            function escapeHTML(str) { const d=document.createElement('div'); d.textContent=str; return d.innerHTML; }
+
+            window.addEventListener('beforeunload', () => { if (timeInterval) clearInterval(timeInterval); });
+            window.addEventListener('DOMContentLoaded', () => { runTerminal(); loadProjects(); loadArticles(); loadMusic(); });
+        })();
+    </script>
+</body>
+</html>
