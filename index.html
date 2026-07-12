@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LJXH - 主页</title>
+    <title>LJXH - 个人主页</title>
     <meta name="description" content="LJXH 的个人主页，展示 GitHub 项目、博客文章、个人网站与音乐。热爱技术与创造。">
     <meta name="keywords" content="LJXH, 个人主页, 开发者, 学生, GitHub, 博客, 前端, 开源">
     <link rel="icon" type="image/x-icon" href="https://ljxh-h.cc.cd/favicon.ico">
@@ -120,6 +120,9 @@
         .floating-buttons{position:fixed;bottom:1.5rem;right:1.5rem;display:flex;flex-direction:column;gap:10px;z-index:1000}
         .float-btn{width:44px;height:44px;border-radius:50%;background:var(--float-btn-bg);backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);border:1px solid var(--float-btn-border);color:var(--float-btn-text);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:1.1rem;transition:all 0.25s}
         .float-btn:hover{background:var(--theme);color:#fff;border-color:var(--theme)}
+        .footer-glass{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:0.5rem;padding:0.25rem 1rem;margin:0 auto;width:fit-content;border-radius:10px;font-size:0.82rem;color:var(--text-secondary);background:var(--title-glass-bg);backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);transition:background 0.3s,color 0.3s}
+        .footer-glass a{color:var(--theme);text-decoration:none;font-weight:600;transition:opacity 0.2s}
+        .footer-glass a:hover{opacity:0.8}.footer-separator{color:var(--text-muted);margin:0 0.15rem}
         @media (max-width:600px){
             .hero-content{margin-bottom:12vh}.hero-content h1{font-size:1.6rem}.avatar-wrapper{width:75px;height:75px}
             .cards-grid,.music-grid{grid-template-columns:1fr}.terminal-body{font-size:0.78rem}
@@ -130,6 +133,7 @@
             .header-left .name-small{font-size:1rem}.menu-toggle-btn{width:36px;height:36px}
             .menu-dropdown{min-width:120px;right:-8px}.menu-dropdown a{padding:0.5rem 0.7rem;font-size:0.85rem}
             .site-item{padding:0.9rem 0.5rem}
+            .footer-glass{font-size:0.76rem;padding:0.2rem 0.8rem}
         }
     </style>
 </head>
@@ -188,17 +192,38 @@
 
         <div class="card">
             <p class="section-label"><i class="fa-solid fa-code"></i> 项目</p>
-            <div id="projects-container"><div class="loading-spinner"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><rect width="24" height="24" opacity="0"/><g fill="currentColor"><path d="M12 7.13..."/></g></svg> 正在加载项目...</div></div>
+            <div id="projects-container">
+                <div class="loading-spinner">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><rect width="24" height="24" opacity="0"/><g fill="currentColor"><path d="M12 7.13..."/></g></svg>
+                    正在加载项目...
+                </div>
+            </div>
         </div>
 
         <div class="card">
             <p class="section-label"><i class="fa-regular fa-newspaper"></i> 文章</p>
-            <div id="articles-container"><div class="loading-spinner"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><rect width="24" height="24" opacity="0"/><g fill="currentColor"><path d="M12 7.13..."/></g></svg> 正在加载文章...</div></div>
+            <div id="articles-container">
+                <div class="loading-spinner">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><rect width="24" height="24" opacity="0"/><g fill="currentColor"><path d="M12 7.13..."/></g></svg>
+                    正在加载文章...
+                </div>
+            </div>
         </div>
 
         <div class="card">
             <p class="section-label"><i class="fa-solid fa-music"></i> 最近听歌</p>
-            <div id="music-container"><div class="loading-spinner"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><rect width="24" height="24" opacity="0"/><g fill="currentColor"><path d="M12 7.13..."/></g></svg> 正在加载听歌列表...</div></div>
+            <div id="music-container">
+                <div class="loading-spinner">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><rect width="24" height="24" opacity="0"/><g fill="currentColor"><path d="M12 7.13..."/></g></svg>
+                    正在加载听歌列表...
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-glass">
+            <span>由 <strong>LJXH</strong> 与 <strong>Deepseek</strong> 制作</span>
+            <span class="footer-separator">·</span>
+            <a href="https://github.com/MSQY-H/ljxh-homepage" target="_blank" rel="noopener">主题</a>
         </div>
     </div>
 
@@ -221,7 +246,7 @@
                 { icon: 'fa-solid fa-blog', name: '博客', url: 'https://www.ljxh-h.cc.cd' },
                 { icon: 'fa-solid fa-pen-to-square', name: 'HXJL BLOG', url: 'https://ljxh-blog.cc.cd' },
                 { icon: 'fa-solid fa-tree', name: '林间起始页', url: 'https://start.ljxh-blog.cc.cd' },
-                { icon: 'fa-solid fa-note-sticky', name: '湖畔便签', url: 'https://note.ljxh-blog.cc.cd' },
+                { icon: 'fa-solid fa-note-sticky', name: '湖畔便签', url: 'https://note.ljxh-blog.cc.cd' }
             ],
             profile: { name: 'LJXH', job: '学生', abilities: 'Vibe Coding', website: 'https://www.ljxh-h.cc.cd', email: 'LJXH_H@outlook.com' },
             githubUser: 'MSQY-H',
@@ -344,7 +369,7 @@
                 const l3=addLine(); const p3=document.createElement('span');p3.className='terminal-prompt';p3.textContent='user@ljxh:~$ ';l3.appendChild(p3); const c3=document.createElement('span');c3.className='terminal-cursor';l3.appendChild(c3);updateHeight();
             }
 
-            function revealLater(grid, delay=800) { setTimeout(() => { if (grid) grid.classList.add('revealed'); }, delay); }
+            function revealLater(grid, delay=600) { setTimeout(() => { if (grid) grid.classList.add('revealed'); }, delay); }
 
             async function loadProjects() {
                 const container = document.getElementById('projects-container');
@@ -359,24 +384,48 @@
                     show.forEach(r => { const desc=r.description||'暂无描述';const lang=r.language||'Unknown';const color=langColors[lang]||'#6e7681';const stars=r.stargazers_count||0;
                         html += `<a href="${r.html_url}" target="_blank" rel="noopener" class="mini-card"><h3><i class="fa-solid fa-code"></i> ${escapeHTML(r.name)}</h3><p class="card-desc">${escapeHTML(desc)}</p><div class="card-meta"><span class="meta-tag"><span class="lang-dot" style="background:${color};"></span> ${escapeHTML(lang)}</span>${stars?`<span class="star-count"><i class="fa-solid fa-star"></i> ${stars}</span>`:''}</div></a>`; });
                     html += '</div><a href="https://github.com/MSQY-H?tab=repositories" target="_blank" rel="noopener" class="more-link">查看更多项目 <i class="fa-solid fa-arrow-right"></i></a>';
-                    container.innerHTML = html; revealLater(container.querySelector('.cards-grid'), 800);
+                    container.innerHTML = html;
+                    revealLater(container.querySelector('.cards-grid'), 600);
                 } catch { container.innerHTML = '<p class="error-msg"><i class="fa-solid fa-circle-exclamation"></i> 暂时无法加载项目</p>'; }
             }
 
             async function loadArticles() {
                 const container = document.getElementById('articles-container');
                 const rssUrl = 'https://www.ljxh-h.cc.cd/rss2.xml';
-                const apiUrl = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(rssUrl);
+                const rssUrlWithTimestamp = rssUrl + '?t=' + Date.now();
+
                 const render = (items) => {
                     if (!items.length) { container.innerHTML = '<p class="empty-msg">暂无文章，访问<a href="https://www.ljxh-h.cc.cd" target="_blank">博客</a></p>'; return; }
-                    const show = items.slice(0,3); let html = '<div class="cards-grid">';
+                    items.sort((a, b) => new Date(b.pubDate) - new Date(a.pubDate));
+                    const show = items.slice(0, 3);
+                    let html = '<div class="cards-grid">';
                     show.forEach(item => { const title=item.title||'无标题';const link=item.link||'#';const date=formatDate(item.pubDate);let desc=item.description?stripHTML(item.description).slice(0,100)+'...':'阅读文章';
                         html += `<a href="${link}" target="_blank" rel="noopener" class="mini-card"><h3><i class="fa-regular fa-file-lines"></i> ${escapeHTML(title)}</h3><p class="card-desc">${escapeHTML(desc)}</p><div class="card-meta"><span class="meta-tag"><i class="fa-regular fa-calendar"></i> ${date}</span></div></a>`; });
-                    html += '</div><a href="https://www.ljxh-h.cc.cd" target="_blank" rel="noopener" class="more-link">查看更多文章 <i class="fa-solid fa-arrow-right"></i></a>';
-                    container.innerHTML = html; revealLater(container.querySelector('.cards-grid'), 800);
+                    html += '</div><a href="https://www.ljxh-h.cc.cd/archives/" target="_blank" rel="noopener" class="more-link">查看更多文章 <i class="fa-solid fa-arrow-right"></i></a>';
+                    container.innerHTML = html;
+                    revealLater(container.querySelector('.cards-grid'), 600);
                 };
-                try { const resp = await fetch(apiUrl, { signal: AbortSignal.timeout?AbortSignal.timeout(8000):undefined }); if (resp.ok) { const data = await resp.json(); if (data.status==='ok' && data.items?.length) { render(data.items); return; } } } catch {}
-                try { const resp = await fetch(rssUrl, { signal: AbortSignal.timeout?AbortSignal.timeout(6000):undefined }); if (resp.ok) { const xml = await resp.text(); const items = parseRSS(xml); if (items.length) { render(items); return; } } } catch {}
+
+                // 直接请求RSS（优先，超时较短）
+                try {
+                    const resp = await fetch(rssUrlWithTimestamp, { signal: AbortSignal.timeout ? AbortSignal.timeout(4000) : undefined });
+                    if (resp.ok) {
+                        const xml = await resp.text();
+                        const items = parseRSS(xml);
+                        if (items.length) { render(items); return; }
+                    }
+                } catch (e) { console.warn('直接请求RSS失败，尝试API:', e.message); }
+
+                // 回退API
+                try {
+                    const apiUrl = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(rssUrl) + '&t=' + Date.now();
+                    const resp = await fetch(apiUrl, { signal: AbortSignal.timeout ? AbortSignal.timeout(6000) : undefined });
+                    if (resp.ok) {
+                        const data = await resp.json();
+                        if (data.status === 'ok' && data.items?.length) { render(data.items); return; }
+                    }
+                } catch (e) { console.warn('API也失败了:', e.message); }
+
                 container.innerHTML = '<p class="error-msg"><i class="fa-solid fa-circle-exclamation"></i> 无法加载文章</p>';
             }
 
