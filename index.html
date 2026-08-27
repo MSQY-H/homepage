@@ -1,24 +1,25 @@
 <!DOCTYPE html>
 <html lang="zh-CN" data-theme="light">
 <head>
+    <link rel="canonical" href="https://msqy-h.github.io/homepage">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MSQY - 个人主页 - NVIDIA GeForce RTX 5060 Ti</title>
     <meta name="description" content="MSQY 的个人主页，展示 GitHub 项目、博客文章、个人网站与音乐。热爱技术与创造。">
     <meta name="keywords" content="MSQY, 个人主页, 开发者, 学生, GitHub, 博客, 前端, 开源">
-    <link rel="icon" type="image/x-icon" href="https://msqy.cc.cd/favicon.ico">
-    <link rel="shortcut icon" type="image/x-icon" href="https://msqy.cc.cd/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="./favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://msqy.cc.cd/">
+    <meta property="og:url" content="https://msqy-h.github.io/homepage">
     <meta property="og:title" content="MSQY - 个人主页">
     <meta property="og:description" content="MSQY 的个人主页，展示 GitHub 项目、博客文章、个人网站与音乐。">
-    <meta property="og:image" content="https://i.ibb.co/6RBCvLHc/avatar.webp">
+    <meta property="og:image" content="https://cn.cravatar.com/avatar/160bd1dbf3863e876098bbd568961703f96934d74ae75ded6872aca9ad82aa1b?s=512&d=mp">
     <meta property="og:image:width" content="512">
     <meta property="og:image:height" content="512">
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="MSQY - 个人主页">
     <meta name="twitter:description" content="MSQY 的个人主页，展示 GitHub 项目、博客文章、个人网站与音乐。">
-    <meta name="twitter:image" content="https://i.ibb.co/6RBCvLHc/avatar.webp">
+    <meta name="twitter:image" content="https://cn.cravatar.com/avatar/160bd1dbf3863e876098bbd568961703f96934d74ae75ded6872aca9ad82aa1b?s=512&d=mp">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         :root { --radius: 12px; --font-mono: 'Consolas', 'Menlo', 'SF Mono', 'JetBrains Mono', 'Fira Code', 'Monaco', 'Courier New', monospace; --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Noto Sans SC', sans-serif; }
@@ -171,7 +172,7 @@
         </div>
 
         <div class="card">
-            <p class="section-label"><i class="fa-solid fa-map-pin"></i> 个人网站</p>
+            <p class="section-label"><i class="fa-solid fa-map-pin"></i> 个人站点</p>
             <div class="site-grid" id="sites-container"></div>
         </div>
 
@@ -235,18 +236,20 @@
     <script>
         const CONFIG = {
             name: 'MSQY',
-            avatar: 'https://i.ibb.co/6RBCvLHc/avatar.webp',
+            avatar: 'https://cn.cravatar.com/avatar/160bd1dbf3863e876098bbd568961703f96934d74ae75ded6872aca9ad82aa1b?s=512&d=mp',
             tagline: 'NVIDIA GeForce RTX 5060 Ti',
             links: [
                 { icon: 'fa-brands fa-github', url: 'https://github.com/MSQY-H', title: 'GitHub' },
-                { icon: 'fa-solid fa-globe', url: 'https://www.msqy.cc.cd', title: '博客' },
+                { icon: 'fa-solid fa-globe', url: 'https://msqy-h.github.io/', title: '博客' },
                 { icon: 'fa-solid fa-envelope', url: 'mailto:Hydroxid_Hualin@outlook.com', title: '邮箱' }
             ],
             sites: [
-                { icon: 'fa-solid fa-blog', name: '博客', url: 'https://www.msqy.cc.cd' },
+                { icon: 'fa-solid fa-blog', name: '博客', url: 'https://msqy-h.github.io/' },
                 { icon: 'fa-solid fa-pen-to-square', name: 'HXJL BLOG', url: 'https://ljxh-blog.cc.cd' },
                 { icon: 'fa-solid fa-tree', name: '林间起始页', url: 'https://start.ljxh-blog.cc.cd' },
-                { icon: 'fa-solid fa-note-sticky', name: '湖畔便签', url: 'https://note.ljxh-blog.cc.cd' }
+                { icon: 'fa-solid fa-note-sticky', name: '湖畔便签', url: 'https://note.ljxh-blog.cc.cd' },
+                { icon: 'fa-solid fa-server', name: '状态监测', url: 'https://status.msqy.cc.cd/' },
+                { icon: 'fa-solid fa-palette', name: '封面制作', url: 'https://msqy-h.github.io/picprose' }
             ],
             profile: { name: 'MSQY', job: '学生', abilities: 'Vibe Coding', website: 'https://www.msqy.cc.cd', email: 'Hydroxid_Hualin@outlook.com' },
             githubUser: 'MSQY-H',
@@ -391,22 +394,21 @@
 
             async function loadArticles() {
                 const container = document.getElementById('articles-container');
-                const rssUrl = 'https://www.msqy.cc.cd/rss2.xml';
+                const rssUrl = 'https://msqy-h.github.io/rss.xml';
                 const rssUrlWithTimestamp = rssUrl + '?t=' + Date.now();
 
                 const render = (items) => {
-                    if (!items.length) { container.innerHTML = '<p class="empty-msg">暂无文章，访问<a href="https://www.msqy.cc.cd" target="_blank">博客</a></p>'; return; }
+                    if (!items.length) { container.innerHTML = '<p class="empty-msg">暂无文章，访问<a href="https://msqy-h.github.io/" target="_blank">博客</a></p>'; return; }
                     items.sort((a, b) => new Date(b.pubDate) - new Date(a.pubDate));
                     const show = items.slice(0, 3);
                     let html = '<div class="cards-grid">';
                     show.forEach(item => { const title=item.title||'无标题';const link=item.link||'#';const date=formatDate(item.pubDate);let desc=item.description?stripHTML(item.description).slice(0,100)+'...':'阅读文章';
                         html += `<a href="${link}" target="_blank" rel="noopener" class="mini-card"><h3><i class="fa-regular fa-file-lines"></i> ${escapeHTML(title)}</h3><p class="card-desc">${escapeHTML(desc)}</p><div class="card-meta"><span class="meta-tag"><i class="fa-regular fa-calendar"></i> ${date}</span></div></a>`; });
-                    html += '</div><a href="https://www.msqy.cc.cd/archives/" target="_blank" rel="noopener" class="more-link">查看更多文章 <i class="fa-solid fa-arrow-right"></i></a>';
+                    html += '</div><a href="https://msqy-h.github.io/" target="_blank" rel="noopener" class="more-link">查看更多文章 <i class="fa-solid fa-arrow-right"></i></a>';
                     container.innerHTML = html;
                     revealLater(container.querySelector('.cards-grid'), 600);
                 };
 
-                // 直接请求RSS（优先，超时较短）
                 try {
                     const resp = await fetch(rssUrlWithTimestamp, { signal: AbortSignal.timeout ? AbortSignal.timeout(4000) : undefined });
                     if (resp.ok) {
@@ -416,7 +418,6 @@
                     }
                 } catch (e) { console.warn('直接请求RSS失败，尝试API:', e.message); }
 
-                // 回退API
                 try {
                     const apiUrl = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(rssUrl) + '&t=' + Date.now();
                     const resp = await fetch(apiUrl, { signal: AbortSignal.timeout ? AbortSignal.timeout(6000) : undefined });
