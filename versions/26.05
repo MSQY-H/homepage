@@ -1,0 +1,2073 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#fbfbfd">
+<meta name="description" content="MSQY — Vibe Coding 工程师">
+<title>MSQY 的主页 - NVIDIA GeForce RTX 5060 Ti</title>
+
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="preconnect" href="https://api.rss2json.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:wght@100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cn-fontsource-source-han-sans-sc-vf/font.css">
+
+<style>
+  :root {
+    --font: 'Google Sans Flex', 'Source Han Sans SC VF', 'Source Han Sans SC',
+      -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Hiragino Sans GB',
+      'Microsoft YaHei', sans-serif;
+
+    --bg: #f5f5f7;
+    --surface: #ffffff;
+    --text: #1d1d1f;
+    --text-secondary: #6e6e73;
+    --accent: #0071e3;
+    --accent-hover: #0077ed;
+
+    --radius-lg: 20px;
+    --menu-bg: rgba(251, 251, 253, 0.96);
+
+    --card: #ffffff;
+    --card-hover: #fcfcfd;
+
+    --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.008), 0 3px 12px rgba(0, 0, 0, 0.015);
+    --shadow-card-hover: 0 1px 3px rgba(0, 0, 0, 0.012), 0 6px 20px rgba(0, 0, 0, 0.022);
+
+    --gutter: 22px;
+    --section-pad: 48px;
+    --title-gap: 28px;
+    --grid-gap: 16px;
+    --card-pad-y: 24px;
+    --card-pad-x: 22px;
+    --icon-size: 40px;
+    --icon-gap: 18px;
+    --slide-width: 240px;
+
+    --nav-pad: 14px;
+
+    --content-width: 1024px;
+    --page-gutter: max(var(--gutter), calc((100vw - var(--content-width)) / 2 + var(--gutter)));
+  }
+
+  @media (min-width: 821px) {
+    :root {
+      --gutter: 61px;
+      --section-pad: 64px;
+      --title-gap: 40px;
+      --grid-gap: 24px;
+      --card-pad-y: 36px;
+      --card-pad-x: 36px;
+      --icon-size: 48px;
+      --icon-gap: 22px;
+      --slide-width: 300px;
+    }
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+  body {
+    font-family: var(--font);
+    background-color: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  button, input, select, textarea { font-family: inherit; }
+
+  a { color: var(--text); text-decoration: none; transition: color 0.2s ease, opacity 0.2s ease; }
+  a:hover { color: var(--text-secondary); }
+
+  ::selection { background: var(--accent); color: #fff; }
+
+  .nav-shell {
+    position: relative;
+    height: 0;
+    z-index: 1000;
+  }
+
+  .nav {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: rgba(251, 251, 253, 0.8);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    backdrop-filter: saturate(180%) blur(20px);
+  }
+
+  .nav-inner {
+    height: 44px;
+    padding: 0 var(--nav-pad);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  .nav-logo {
+    font-size: 15px; font-weight: 600; letter-spacing: -0.01em;
+    color: var(--text); flex: none;
+  }
+  .nav-logo:hover { color: var(--text); opacity: 0.6; }
+
+  .nav-links {
+    display: flex; align-items: center; gap: 30px; list-style: none;
+    margin-left: auto;
+  }
+  .nav-links a { font-size: 12px; color: var(--text-secondary); letter-spacing: 0.01em; }
+  .nav-links a:hover { color: var(--text); }
+
+  .nav-toggle {
+    display: none;
+    width: 32px;
+    height: 32px;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    color: var(--text);
+    flex: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .nav-toggle-icon {
+    width: 18px;
+    height: 18px;
+    display: block;
+  }
+
+  .nav-backdrop,
+  .localnav-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.12);
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+    backdrop-filter: blur(18px) saturate(140%);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.36s ease;
+  }
+
+  .nav-backdrop { z-index: 999; }
+  .localnav-backdrop { z-index: 1090; }
+
+  .nav-backdrop.visible,
+  .localnav-backdrop.visible {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .localnav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1100;
+    background: rgba(251, 251, 253, 0.86);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    backdrop-filter: saturate(180%) blur(20px);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    transform: translateY(-100%);
+    transition: transform 0.42s cubic-bezier(0.16, 1, 0.3, 1),
+                background 0.3s ease;
+    pointer-events: none;
+  }
+
+  .localnav.visible {
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  .localnav.visible.expanded {
+    background: rgba(251, 251, 253, 0.96);
+  }
+
+  .localnav-inner {
+    height: 44px;
+    padding: 0 var(--nav-pad);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  .localnav-title {
+    display: inline-flex;
+    align-items: center;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--text);
+    flex: none;
+    padding: 3px 0 1px;
+  }
+  .localnav-title:hover { color: var(--text); opacity: 0.6; }
+
+  .localnav-toggle {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    color: var(--text);
+    -webkit-tap-highlight-color: transparent;
+    flex: none;
+  }
+
+  .localnav-toggle svg {
+    width: 18px;
+    height: 18px;
+    transition: transform 0.36s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .localnav.expanded .localnav-toggle svg {
+    transform: rotate(180deg);
+  }
+
+  .localnav-menu {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.46s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .localnav.expanded .localnav-menu {
+    grid-template-rows: 1fr;
+  }
+
+  .localnav-menu-inner {
+    overflow: hidden;
+  }
+
+  .localnav-menu-list {
+    list-style: none;
+    padding: 4px var(--nav-pad) 14px;
+  }
+
+  .localnav-menu-list li {
+    opacity: 0;
+    transform: translateY(-8px);
+    transition: opacity 0.36s ease,
+                transform 0.36s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .localnav.expanded .localnav-menu-list li {
+    opacity: 1;
+    transform: none;
+    transition-delay: calc(var(--i, 0) * 0.06s + 0.12s);
+  }
+
+  .localnav-menu-list a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 13px 0 11px;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.005em;
+    line-height: 1.2;
+    color: var(--text-secondary);
+    transition: color 0.2s ease;
+  }
+
+  .localnav-menu-list a:hover {
+    color: var(--text);
+  }
+
+  .localnav-menu-list a::before {
+    content: "";
+    width: 2px;
+    height: 14px;
+    border-radius: 1px;
+    background: transparent;
+    flex: none;
+    transition: background 0.25s ease;
+  }
+
+  .localnav-menu-list a.current {
+    color: var(--text);
+  }
+
+  .localnav-menu-list a.current::before {
+    background: var(--accent);
+  }
+
+  .container {
+    max-width: calc(var(--content-width) + 2 * var(--gutter));
+    margin: 0 auto;
+    padding: 0 var(--gutter);
+  }
+  section { scroll-margin-top: 72px; }
+
+  .hero {
+    position: relative;
+    padding: 120px var(--gutter) 48px;
+    text-align: center;
+    background-color: #ffffff;
+    background-image:
+      radial-gradient(ellipse 900px 560px at 50% -80px, rgba(0, 113, 227, 0.16) 0%, rgba(0, 113, 227, 0) 70%),
+      linear-gradient(180deg, rgba(0, 113, 227, 0.045) 0%, rgba(0, 113, 227, 0) 55%);
+  }
+
+  .avatar {
+    width: 120px; height: 120px; border-radius: 50%; object-fit: cover;
+    display: block; margin: 0 auto 28px;
+    background: #ffffff;
+    box-shadow: var(--shadow-card);
+  }
+
+  .badge {
+    display: inline-flex; align-items: center; justify-content: center; gap: 7px;
+    font-size: 12px; font-weight: 500; color: var(--text-secondary);
+    background: #ffffff;
+    padding: 9px 14px 7px;
+    border-radius: 980px;
+    margin-bottom: 20px;
+    box-shadow: var(--shadow-card);
+    line-height: 1.2;
+  }
+  .badge-dot {
+    width: 7px; height: 7px; border-radius: 50%; background: #30d158; flex: none;
+  }
+
+  .hero h1 {
+    font-size: clamp(44px, 8vw, 80px);
+    font-weight: 600; letter-spacing: -0.04em; line-height: 1.02;
+    margin-bottom: 16px;
+  }
+
+  .hero .tagline {
+    font-size: clamp(20px, 2.7vw, 28px); font-weight: 400;
+    color: var(--text-secondary); letter-spacing: -0.01em;
+    max-width: 560px; margin: 0 auto 40px; line-height: 1.4;
+  }
+
+  .hero .tagline-cn {
+    display: inline-block;
+    transform: translateX(0.5rem);
+  }
+
+  .hero-actions { display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap; }
+
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 15px; font-weight: 500;
+    line-height: 1.2;
+    padding: 10px 22px 8px;
+    border-radius: 980px;
+    border: 1px solid transparent; cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+    white-space: nowrap;
+  }
+
+  .btn-primary {
+    background: var(--accent); color: #fff; border-color: var(--accent);
+  }
+  .btn-primary:hover {
+    background: var(--accent-hover); border-color: var(--accent-hover); color: #fff;
+  }
+
+  .btn-secondary {
+    background: transparent; color: var(--accent); border-color: var(--accent);
+  }
+  .btn-secondary:hover {
+    background: var(--accent); color: #fff; border-color: var(--accent);
+  }
+
+  .section { padding: var(--section-pad) 0; }
+
+  .section-light {
+    background: var(--surface);
+    --card: #f5f5f7;
+    --card-hover: #ebebed;
+    --shadow-card: none;
+    --shadow-card-hover: none;
+  }
+
+  .section-title {
+    font-size: clamp(30px, 5vw, 48px);
+    font-weight: 600; letter-spacing: -0.035em; line-height: 1.08;
+    color: var(--text);
+    margin-bottom: var(--title-gap);
+  }
+
+  .card-grid-2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--grid-gap);
+    align-items: start;
+  }
+
+  .card {
+    display: flex; flex-direction: column;
+    background: var(--card);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-card);
+    transition: background 0.3s ease, box-shadow 0.35s ease,
+                transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .card:hover {
+    background: var(--card-hover);
+    box-shadow: var(--shadow-card-hover);
+    transform: translateY(-3px);
+  }
+
+  .card-body {
+    padding: var(--card-pad-y) var(--card-pad-x);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .card-meta {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .card-title {
+    font-size: 21px;
+    font-weight: 600;
+    letter-spacing: -0.022em;
+    line-height: 1.2;
+    margin-bottom: 8px;
+    word-break: break-word;
+  }
+
+  .card-desc {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+
+  .icon-card .card-body { flex: 1; }
+
+  .icon-card .card-icon {
+    width: var(--icon-size);
+    height: var(--icon-size);
+    color: var(--text);
+    margin-bottom: var(--icon-gap);
+    flex: none;
+  }
+
+  .icon-card .card-url {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
+  .site-card {
+    position: relative;
+    cursor: pointer;
+  }
+
+  .site-card .card-body {
+    padding-bottom: 62px;
+  }
+
+  .site-add {
+    position: absolute;
+    right: 22px;
+    bottom: 22px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.06);
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 3;
+    transition: background 0.2s ease, transform 0.2s ease;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+  }
+
+  .site-add:hover {
+    background: rgba(0, 0, 0, 0.12);
+    transform: scale(1.04);
+  }
+
+  .site-add svg {
+    width: 36px;
+    height: 36px;
+    display: block;
+    pointer-events: none;
+  }
+
+  .site-scroller-wrap {
+    position: relative;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+  }
+
+  .site-scroller-wrap::before,
+  .site-scroller-wrap::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: var(--gutter);
+    pointer-events: none;
+    z-index: 2;
+    transition: opacity 0.25s ease;
+  }
+  .site-scroller-wrap::before {
+    left: 0;
+    background: linear-gradient(to right, rgba(245, 245, 247, 1) 0%, rgba(245, 245, 247, 0) 100%);
+  }
+  .site-scroller-wrap::after {
+    right: 0;
+    background: linear-gradient(to left, rgba(245, 245, 247, 1) 0%, rgba(245, 245, 247, 0) 100%);
+  }
+
+  .site-scroller-wrap.at-start::before { opacity: 0; }
+  .site-scroller-wrap.at-end::after { opacity: 0; }
+
+  .site-scroller {
+    display: flex;
+    gap: var(--grid-gap);
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-padding-left: var(--page-gutter);
+    -webkit-overflow-scrolling: touch;
+    padding: 8px var(--page-gutter) 16px;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .site-scroller::-webkit-scrollbar { display: none; }
+
+  .site-card {
+    flex: 0 0 var(--slide-width);
+    width: var(--slide-width);
+    scroll-snap-align: start;
+  }
+
+  .site-paddlenav {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 16px;
+    margin-top: 20px;
+  }
+
+  .site-paddlenav button {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: none;
+    padding: 0;
+    background: rgba(0, 0, 0, 0.06);
+    color: var(--text);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s ease, opacity 0.2s ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .site-paddlenav button:hover:not(:disabled) { background: rgba(0, 0, 0, 0.1); }
+  .site-paddlenav button:disabled { opacity: 0.32; cursor: default; }
+  .site-paddlenav svg { width: 36px; height: 36px; display: block; }
+
+  .news-list { display: flex; flex-direction: column; }
+
+  .news-row {
+    display: block;
+    padding: 20px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  }
+
+  .news-category {
+    display: block;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .news-title {
+    font-size: 19px;
+    font-weight: 600;
+    letter-spacing: -0.022em;
+    line-height: 1.35;
+    color: var(--text);
+    margin-bottom: 8px;
+    transition: color 0.2s ease;
+    word-break: break-word;
+  }
+
+  .news-row:hover .news-title { color: var(--text-secondary); }
+
+  .news-date {
+    display: block;
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.4;
+  }
+
+  .news-skeleton {
+    padding: 20px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  }
+
+  .news-skeleton-line {
+    border-radius: 5px;
+    background: linear-gradient(90deg, #ebebed 25%, #f5f5f7 50%, #ebebed 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.6s ease-in-out infinite;
+  }
+  .news-skeleton-line.eyebrow { width: 18%; height: 11px; margin-bottom: 8px; }
+  .news-skeleton-line.title { width: 70%; height: 20px; margin-bottom: 8px; }
+  .news-skeleton-line.date { width: 20%; height: 12px; }
+
+  @keyframes shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+  }
+
+  .news-empty {
+    padding: 32px 0;
+    font-size: 14px;
+    color: var(--text-secondary);
+    text-align: center;
+    line-height: 1.6;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  }
+  .news-empty a { color: var(--accent); }
+  .news-empty a:hover { color: var(--accent-hover); }
+
+  .news-more {
+    display: flex;
+    justify-content: center;
+    margin-top: var(--title-gap);
+  }
+
+  .news-more-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.2;
+    color: var(--accent);
+    background: transparent;
+    border: 1px solid var(--accent);
+    border-radius: 980px;
+    padding: 11px 24px 9px;
+    white-space: nowrap;
+    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .news-more-btn:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+  }
+
+  .news-more-btn svg { width: 1em; height: 1em; flex: none; display: block; }
+
+  /* ============ 站点详情弹层 ============ */
+  .detail-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 1200;
+    background: rgba(0, 0, 0, 0.12);
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+    backdrop-filter: blur(18px) saturate(140%);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+
+  .detail-backdrop.visible {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .detail-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 1201;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .detail-modal.visible {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .detail-card {
+    position: relative;
+    width: 100%;
+    max-width: 420px;
+    background: #ffffff;
+    border-radius: 28px;
+    padding: 40px 32px 32px;
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.16);
+    transform-origin: center center;
+    will-change: transform, opacity;
+  }
+
+  .detail-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(0, 0, 0, 0.06);
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 0;
+    transition: background 0.2s ease;
+  }
+
+  .detail-close:hover { background: rgba(0, 0, 0, 0.12); }
+
+  .detail-close svg {
+    width: 36px;
+    height: 36px;
+    display: block;
+    pointer-events: none;
+  }
+
+  .detail-icon {
+    width: 56px;
+    height: 56px;
+    color: var(--text);
+    margin-bottom: 20px;
+  }
+
+  .detail-icon svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  .detail-title {
+    font-size: 24px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    margin-bottom: 10px;
+    padding: 2px 0 1px;
+  }
+
+  .detail-desc {
+    font-size: 15px;
+    color: var(--text-secondary);
+    line-height: 1.55;
+    margin-bottom: 14px;
+  }
+
+  .detail-url {
+    display: block;
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-bottom: 22px;
+    overflow-wrap: anywhere;
+  }
+
+  .detail-open {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.2;
+    color: var(--accent);
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    padding: 0;
+    transition: color 0.2s ease;
+  }
+
+  .detail-open:hover { color: var(--accent-hover); }
+
+  .detail-open svg {
+    width: 1em;
+    height: 1em;
+    flex: none;
+    display: block;
+    transition: transform 0.2s ease;
+  }
+
+  .detail-open:hover svg { transform: translateX(3px); }
+
+  .footer {
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    padding: 36px 0 40px;
+  }
+
+  .footer-inner {
+    max-width: calc(var(--content-width) + 2 * var(--gutter));
+    margin: 0 auto;
+    padding: 0 var(--gutter);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+  }
+
+  .footer-logo {
+    line-height: 0;
+    margin: 0 0 11px 0;
+  }
+
+  .footer-logo img,
+  .footer-logo svg {
+    display: block;
+    height: 60px;
+    width: auto;
+    max-width: 100%;
+  }
+
+  .footer-copy {
+    font-size: 12px;
+    line-height: 1.5;
+    color: var(--text-secondary);
+    margin: 0;
+  }
+
+  .footer-copy + .footer-copy {
+    margin-top: 8px;
+  }
+
+  .footer-links {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    margin-top: 8px;
+  }
+
+  .footer-links a {
+    font-size: 12px;
+    line-height: 1.5;
+    color: var(--text-secondary);
+  }
+
+  .footer-links a:hover {
+    color: var(--text);
+  }
+
+  .reveal {
+    opacity: 0; transform: translateY(20px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    transition-delay: var(--d, 0s);
+    will-change: opacity, transform;
+  }
+
+  .reveal.visible { opacity: 1; transform: none; }
+
+  @media (min-width: 821px) {
+    .hero { padding: 164px var(--gutter) 80px; }
+    .news-row { padding: 24px 0; }
+    .news-title { font-size: 21px; }
+    .site-paddlenav { margin-top: 24px; }
+    .news-more-btn { font-size: 16px; padding: 12px 26px 10px; }
+    .localnav-menu-list a { font-size: 15px; padding: 14px 0 12px; }
+    .localnav-menu-list a::before { height: 16px; }
+
+    .footer { padding: 44px 0 48px; }
+    .footer-logo img,
+    .footer-logo svg { height: 68px; }
+
+    .detail-card { padding: 48px 40px 40px; max-width: 460px; }
+    .detail-icon { width: 64px; height: 64px; }
+    .detail-title { font-size: 28px; }
+    .detail-desc { font-size: 16px; }
+  }
+
+  @media (max-width: 820px) {
+    .card-grid-2 { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 600px) {
+    .nav-links { display: none; }
+    .nav-toggle { display: flex; }
+
+    .nav-links {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+      position: absolute;
+      top: 44px;
+      left: 0;
+      right: 0;
+      margin-left: 0;
+      padding: 0 var(--nav-pad);
+      background: var(--menu-bg);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      backdrop-filter: saturate(180%) blur(20px);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0);
+      overflow: hidden;
+      max-height: 0;
+      opacity: 0;
+      pointer-events: none;
+      transition: max-height 0.46s cubic-bezier(0.16, 1, 0.3, 1),
+                  padding 0.46s cubic-bezier(0.16, 1, 0.3, 1),
+                  opacity 0.3s ease,
+                  box-shadow 0.3s ease;
+    }
+
+    .nav-links.open {
+      padding: 4px var(--nav-pad) 14px;
+      max-height: 280px;
+      opacity: 1;
+      pointer-events: auto;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.06);
+    }
+
+    .nav-links li {
+      opacity: 0;
+      transform: translateY(-8px);
+      transition: opacity 0.36s ease,
+                  transform 0.36s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .nav-links.open li {
+      opacity: 1;
+      transform: none;
+      transition-delay: calc(var(--i, 0) * 0.06s + 0.12s);
+    }
+
+    .nav-links li:nth-child(1) { --i: 0; }
+    .nav-links li:nth-child(2) { --i: 1; }
+    .nav-links li:nth-child(3) { --i: 2; }
+    .nav-links li:nth-child(4) { --i: 3; }
+
+    .nav-links a {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 13px 0 11px;
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.005em;
+      line-height: 1.2;
+      color: var(--text-secondary);
+      transition: color 0.2s ease;
+    }
+
+    .nav-links a::before {
+      content: "";
+      width: 2px;
+      height: 14px;
+      border-radius: 1px;
+      background: transparent;
+      flex: none;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    .hero { padding: 112px var(--gutter) 40px; }
+    .avatar { width: 96px; height: 96px; margin-bottom: 22px; }
+    .badge { font-size: 11px; padding: 8px 12px 6px; margin-bottom: 18px; }
+    .hero h1 { font-size: clamp(40px, 12vw, 56px); margin-bottom: 14px; }
+    .hero .tagline { font-size: 18px; margin-bottom: 32px; }
+
+    .btn { font-size: 14px; padding: 9px 20px 7px; }
+
+    .card-title { font-size: 19px; }
+    .card-desc { font-size: 13px; }
+    .icon-card .card-url { font-size: 13px; }
+
+    .news-row { padding: 18px 0; }
+    .news-title { font-size: 17px; }
+    .news-date { font-size: 12px; }
+    .news-skeleton { padding: 18px 0; }
+    .news-skeleton-line.title { height: 18px; width: 80%; }
+
+    .site-paddlenav { margin-top: 16px; gap: 14px; }
+    .site-paddlenav button { width: 34px; height: 34px; }
+    .site-paddlenav svg { width: 34px; height: 34px; }
+
+    .news-more-btn { font-size: 14px; padding: 10px 20px 8px; gap: 7px; }
+
+    .site-card .card-body { padding-bottom: 54px; }
+    .site-add { right: 16px; bottom: 16px; width: 32px; height: 32px; }
+    .site-add svg { width: 32px; height: 32px; }
+
+    .detail-card { padding: 36px 24px 28px; border-radius: 24px; }
+    .detail-title { font-size: 22px; }
+    .detail-desc { font-size: 14px; }
+    .detail-close { top: 16px; right: 16px; width: 32px; height: 32px; }
+    .detail-close svg { width: 32px; height: 32px; }
+
+    .footer { padding: 28px 0 32px; }
+    .footer-logo { margin-bottom: 11px; }
+    .footer-logo img,
+    .footer-logo svg { height: 48px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .reveal { opacity: 1; transform: none; transition: none; }
+    .card, .btn, .site-paddlenav button, .news-more-btn { transition: none; }
+    .nav-links, .nav-links li,
+    .localnav, .localnav-menu, .localnav-toggle svg,
+    .localnav-menu-list li, .localnav-backdrop, .nav-backdrop { transition: none; }
+    .nav-links li, .localnav-menu-list li { opacity: 1; transform: none; }
+    .news-skeleton-line { animation: none; background: #ebebed; }
+    .site-scroller { scroll-behavior: auto; }
+    .site-scroller-wrap::before,
+    .site-scroller-wrap::after { transition: none; }
+    .detail-modal, .detail-card, .detail-backdrop, .site-add { transition: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="nav-shell">
+  <nav class="nav" id="nav" aria-label="主菜单">
+    <div class="nav-inner">
+      <a href="#top" class="nav-logo">MSQY</a>
+
+      <button
+        class="nav-toggle"
+        id="navToggle"
+        type="button"
+        aria-label="打开菜单"
+        aria-expanded="false"
+        aria-controls="navMenu"
+      >
+        <svg class="nav-toggle-icon" width="18" height="18" viewBox="0 0 18 18" aria-hidden="true">
+          <polyline
+            class="nav-line nav-line-bottom"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            points="2 12, 16 12">
+            <animate
+              id="nav-anim-line-bottom-open"
+              attributeName="points"
+              keyTimes="0;0.5;1"
+              dur="0.24s"
+              begin="indefinite"
+              fill="freeze"
+              calcMode="spline"
+              keySplines="0.42, 0, 1, 1;0, 0, 0.58, 1"
+              values="2 12, 16 12; 2 9, 16 9; 3.5 15, 15 3.5"></animate>
+            <animate
+              id="nav-anim-line-bottom-close"
+              attributeName="points"
+              keyTimes="0;0.5;1"
+              dur="0.24s"
+              begin="indefinite"
+              fill="freeze"
+              calcMode="spline"
+              keySplines="0.42, 0, 1, 1;0, 0, 0.58, 1"
+              values="3.5 15, 15 3.5; 2 9, 16 9; 2 12, 16 12"></animate>
+          </polyline>
+
+          <polyline
+            class="nav-line nav-line-top"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            points="2 5, 16 5">
+            <animate
+              id="nav-anim-line-top-open"
+              attributeName="points"
+              keyTimes="0;0.5;1"
+              dur="0.24s"
+              begin="indefinite"
+              fill="freeze"
+              calcMode="spline"
+              keySplines="0.42, 0, 1, 1;0, 0, 0.58, 1"
+              values="2 5, 16 5; 2 9, 16 9; 3.5 3.5, 15 15"></animate>
+            <animate
+              id="nav-anim-line-top-close"
+              attributeName="points"
+              keyTimes="0;0.5;1"
+              dur="0.24s"
+              begin="indefinite"
+              fill="freeze"
+              calcMode="spline"
+              keySplines="0.42, 0, 1, 1;0, 0, 0.58, 1"
+              values="3.5 3.5, 15 15; 2 9, 16 9; 2 5, 16 5"></animate>
+          </polyline>
+        </svg>
+      </button>
+
+      <ul class="nav-links" id="navMenu">
+        <li><a href="#projects">项目</a></li>
+        <li><a href="#sites">站点</a></li>
+        <li><a href="#articles">文章</a></li>
+        <li><a href="#contact">联系</a></li>
+      </ul>
+    </div>
+  </nav>
+</div>
+
+<div class="nav-backdrop" id="navBackdrop"></div>
+<div class="localnav-backdrop" id="localnavBackdrop"></div>
+
+<nav class="localnav" id="localnav" aria-label="页面目录">
+  <div class="localnav-inner">
+    <a href="#top" class="localnav-title">主页</a>
+    <button
+      class="localnav-toggle"
+      id="localnavToggle"
+      type="button"
+      aria-label="展开本页目录"
+      aria-expanded="false"
+      aria-controls="localnavMenu"
+    >
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M6 9l6 6 6-6"/>
+      </svg>
+    </button>
+  </div>
+
+  <div class="localnav-menu" id="localnavMenu">
+    <div class="localnav-menu-inner">
+      <ul class="localnav-menu-list">
+        <li style="--i: 0"><a href="#projects" data-section="projects">项目</a></li>
+        <li style="--i: 1"><a href="#sites" data-section="sites">站点</a></li>
+        <li style="--i: 2"><a href="#articles" data-section="articles">文章</a></li>
+        <li style="--i: 3"><a href="#contact" data-section="contact">联系</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <img
+    class="avatar"
+    src="https://weavatar.com/avatar/0956bf9cc2e156d891badf334ba080c1d8c8bb182295c56aa87c1b7dc54901a5?s=256"
+    alt="MSQY 的头像"
+    width="120"
+    height="120"
+    loading="eager"
+  >
+  <div class="badge">
+    <span class="badge-dot"></span>
+    开放合作
+  </div>
+  <h1>MSQY</h1>
+  <p class="tagline">Vibe Coding 工程师<br><span class="tagline-cn">把复杂的想法，做成简单好用的东西。</span></p>
+  <div class="hero-actions">
+    <a href="https://msqy-h.github.io/" class="btn btn-primary" target="_blank" rel="noopener">看博客</a>
+    <a href="#contact" class="btn btn-secondary">联系我</a>
+  </div>
+</header>
+
+<section class="section section-light" id="projects">
+  <div class="container">
+    <h2 class="section-title reveal">做点硬的</h2>
+
+    <div class="card-grid-2">
+      <a class="card reveal" style="--d: .04s" href="https://github.com/MSQY-H/AlpineStar-Toolbox" target="_blank" rel="noopener">
+        <div class="card-body">
+          <span class="card-meta">AlpineStar-Toolbox</span>
+          <h3 class="card-title">AlpineStar Toolbox</h3>
+          <p class="card-desc">一套轻量的工具集合，帮助快速搭建日常开发流程。</p>
+        </div>
+      </a>
+
+      <a class="card reveal" style="--d: .1s" href="https://github.com/MSQY-H/homepage" target="_blank" rel="noopener">
+        <div class="card-body">
+          <span class="card-meta">homepage</span>
+          <h3 class="card-title">个人主页</h3>
+          <p class="card-desc">这个个人主页本身的源码与设计说明。</p>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="sites">
+  <div class="container">
+    <h2 class="section-title reveal">散落的据点</h2>
+
+    <div class="site-scroller-wrap" id="siteScrollerWrap">
+      <div class="site-scroller" id="siteScroller">
+        <a class="card icon-card site-card reveal" style="--d: .03s"
+           href="https://msqy-h.github.io/" target="_blank" rel="noopener"
+           data-desc="记录想法、笔记与日常折腾的地方，偶尔也会写点长文。">
+          <div class="card-body">
+            <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v18H6.5A2.5 2.5 0 0 0 4 22V4.5z"/>
+              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+              <path d="M8 7h8M8 11h5"/>
+            </svg>
+            <h3 class="card-title">博客</h3>
+            <span class="card-url">msqy-h.github.io</span>
+            <span class="site-add" role="button" tabindex="0" aria-label="查看博客详情">
+              <svg viewBox="0 0 36 36" fill="currentColor" aria-hidden="true">
+                <path d="m24 16.5h-4.5v-4.5c0-.8286-.6719-1.5-1.5-1.5s-1.5.6714-1.5 1.5v4.5h-4.5c-.8281 0-1.5.6714-1.5 1.5s.6719 1.5 1.5 1.5h4.5v4.5c0 .8286.6719 1.5 1.5 1.5s1.5-.6714 1.5-1.5v-4.5h4.5c.8281 0 1.5-.6714 1.5-1.5s-.6719-1.5-1.5-1.5z"/>
+              </svg>
+            </span>
+          </div>
+        </a>
+
+        <a class="card icon-card site-card reveal" style="--d: .06s"
+           href="https://msqy-h.github.io/toolbox" target="_blank" rel="noopener"
+           data-desc="常用的小工具都收在这里，随取随用，不收藏夹也能找到。">
+          <div class="card-body">
+            <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M14.7 6.3a4 4 0 0 0-5.6 5.6l-6.1 6.1a1.5 1.5 0 0 0 2.1 2.1l6.1-6.1a4 4 0 0 0 5.6-5.6l-2.5 2.5-2.1-2.1 2.5-2.5z"/>
+            </svg>
+            <h3 class="card-title">工具箱</h3>
+            <span class="card-url">msqy-h.github.io/toolbox</span>
+            <span class="site-add" role="button" tabindex="0" aria-label="查看工具箱详情">
+              <svg viewBox="0 0 36 36" fill="currentColor" aria-hidden="true">
+                <path d="m24 16.5h-4.5v-4.5c0-.8286-.6719-1.5-1.5-1.5s-1.5.6714-1.5 1.5v4.5h-4.5c-.8281 0-1.5.6714-1.5 1.5s.6719 1.5 1.5 1.5h4.5v4.5c0 .8286.6719 1.5 1.5 1.5s1.5-.6714 1.5-1.5v-4.5h4.5c.8281 0 1.5-.6714 1.5-1.5s-.6719-1.5-1.5-1.5z"/>
+              </svg>
+            </span>
+          </div>
+        </a>
+
+        <a class="card icon-card site-card reveal" style="--d: .09s"
+           href="https://start.ljxh-blog.cc.cd/" target="_blank" rel="noopener"
+           data-desc="浏览器的第一站，常用链接与搜索入口都摆在一块儿。">
+          <div class="card-body">
+            <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M3 10.5 12 3l9 7.5"/>
+              <path d="M5 9.5V21h5v-6h4v6h5V9.5"/>
+            </svg>
+            <h3 class="card-title">起始页</h3>
+            <span class="card-url">start.ljxh-blog.cc.cd</span>
+            <span class="site-add" role="button" tabindex="0" aria-label="查看起始页详情">
+              <svg viewBox="0 0 36 36" fill="currentColor" aria-hidden="true">
+                <path d="m24 16.5h-4.5v-4.5c0-.8286-.6719-1.5-1.5-1.5s-1.5.6714-1.5 1.5v4.5h-4.5c-.8281 0-1.5.6714-1.5 1.5s.6719 1.5 1.5 1.5h4.5v4.5c0 .8286.6719 1.5 1.5 1.5s1.5-.6714 1.5-1.5v-4.5h4.5c.8281 0 1.5-.6714 1.5-1.5s-.6719-1.5-1.5-1.5z"/>
+              </svg>
+            </span>
+          </div>
+        </a>
+
+        <a class="card icon-card site-card reveal" style="--d: .12s"
+           href="https://note.ljxh-blog.cc.cd/" target="_blank" rel="noopener"
+           data-desc="随手记下待办、灵感与临时文本，轻量、即时、不用登录。">
+          <div class="card-body">
+            <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M5 3h11l4 4v14a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/>
+              <path d="M15 3v5h5"/>
+              <path d="M8 13h8M8 17h5"/>
+            </svg>
+            <h3 class="card-title">便签</h3>
+            <span class="card-url">note.ljxh-blog.cc.cd</span>
+            <span class="site-add" role="button" tabindex="0" aria-label="查看便签详情">
+              <svg viewBox="0 0 36 36" fill="currentColor" aria-hidden="true">
+                <path d="m24 16.5h-4.5v-4.5c0-.8286-.6719-1.5-1.5-1.5s-1.5.6714-1.5 1.5v4.5h-4.5c-.8281 0-1.5.6714-1.5 1.5s.6719 1.5 1.5 1.5h4.5v4.5c0 .8286.6719 1.5 1.5 1.5s1.5-.6714 1.5-1.5v-4.5h4.5c.8281 0 1.5-.6714 1.5-1.5s-.6719-1.5-1.5-1.5z"/>
+              </svg>
+            </span>
+          </div>
+        </a>
+
+        <a class="card icon-card site-card reveal" style="--d: .15s"
+           href="https://status.msqy.cc.cd/" target="_blank" rel="noopener"
+           data-desc="各站点与服务运行状态的实时看板，出问题第一时间知道。">
+          <div class="card-body">
+            <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M2 12h4l2-5 3 10 2-6 2 3h7"/>
+            </svg>
+            <h3 class="card-title">状态监测</h3>
+            <span class="card-url">status.msqy.cc.cd</span>
+            <span class="site-add" role="button" tabindex="0" aria-label="查看状态监测详情">
+              <svg viewBox="0 0 36 36" fill="currentColor" aria-hidden="true">
+                <path d="m24 16.5h-4.5v-4.5c0-.8286-.6719-1.5-1.5-1.5s-1.5.6714-1.5 1.5v4.5h-4.5c-.8281 0-1.5.6714-1.5 1.5s.6719 1.5 1.5 1.5h4.5v4.5c0 .8286.6719 1.5 1.5 1.5s1.5-.6714 1.5-1.5v-4.5h4.5c.8281 0 1.5-.6714 1.5-1.5s-.6719-1.5-1.5-1.5z"/>
+              </svg>
+            </span>
+          </div>
+        </a>
+
+        <a class="card icon-card site-card reveal" style="--d: .18s"
+           href="https://msqy-h.github.io/picprose/" target="_blank" rel="noopener"
+           data-desc="为文章快速生成配图与封面，挑一张图，加一句话就好。">
+          <div class="card-body">
+            <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="3" y="3" width="18" height="18" rx="3"/>
+              <circle cx="9" cy="9" r="1.8"/>
+              <path d="M21 15.5 16 10.5 6 21"/>
+            </svg>
+            <h3 class="card-title">封面制作</h3>
+            <span class="card-url">msqy-h.github.io/picprose</span>
+            <span class="site-add" role="button" tabindex="0" aria-label="查看封面制作详情">
+              <svg viewBox="0 0 36 36" fill="currentColor" aria-hidden="true">
+                <path d="m24 16.5h-4.5v-4.5c0-.8286-.6719-1.5-1.5-1.5s-1.5.6714-1.5 1.5v4.5h-4.5c-.8281 0-1.5.6714-1.5 1.5s.6719 1.5 1.5 1.5h4.5v4.5c0 .8286.6719 1.5 1.5 1.5s1.5-.6714 1.5-1.5v-4.5h4.5c.8281 0 1.5-.6714 1.5-1.5s-.6719-1.5-1.5-1.5z"/>
+              </svg>
+            </span>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <div class="site-paddlenav">
+      <button id="sitePrev" type="button" aria-label="上一组站点" disabled>
+        <svg viewBox="0 0 36 36" fill="currentColor" aria-hidden="true">
+          <path d="m20 25c-.3838 0-.7676-.1465-1.0605-.4395l-5.5-5.5c-.5859-.5854-.5859-1.5356 0-2.1211l5.5-5.5c.5859-.5859 1.5352-.5859 2.1211 0 .5859.5854.5859 1.5356 0 2.1211l-4.4395 4.4395 4.4395 4.4395c.5859.5854.5859 1.5356 0 2.1211-.293.293-.6768.4395-1.0605.4395z"/>
+        </svg>
+      </button>
+      <button id="siteNext" type="button" aria-label="下一组站点">
+        <svg viewBox="0 0 36 36" fill="currentColor" aria-hidden="true">
+          <path d="m22.5597 16.9375-5.5076-5.5c-.5854-.5854-1.5323-.5825-2.1157.0039-.5835.5869-.5815 1.5366.0039 2.1211l4.4438 4.4375-4.4438 4.4375c-.5854.5845-.5874 1.5342-.0039 2.1211.2922.2944.676.4414 1.0598.4414.3818 0 .7637-.1455 1.0559-.4375l5.5076-5.5c.2815-.2812.4403-.6636.4403-1.0625s-.1588-.7812-.4403-1.0625z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+<section class="section section-light" id="articles">
+  <div class="container">
+    <h2 class="section-title reveal">看看文章</h2>
+
+    <div class="news-list" id="articleList">
+      <div class="news-skeleton">
+        <div class="news-skeleton-line eyebrow"></div>
+        <div class="news-skeleton-line title"></div>
+        <div class="news-skeleton-line date"></div>
+      </div>
+      <div class="news-skeleton">
+        <div class="news-skeleton-line eyebrow"></div>
+        <div class="news-skeleton-line title"></div>
+        <div class="news-skeleton-line date"></div>
+      </div>
+      <div class="news-skeleton">
+        <div class="news-skeleton-line eyebrow"></div>
+        <div class="news-skeleton-line title"></div>
+        <div class="news-skeleton-line date"></div>
+      </div>
+      <div class="news-skeleton">
+        <div class="news-skeleton-line eyebrow"></div>
+        <div class="news-skeleton-line title"></div>
+        <div class="news-skeleton-line date"></div>
+      </div>
+    </div>
+
+    <div class="news-more reveal">
+      <a class="news-more-btn" href="https://www.msqy.cc.cd/" target="_blank" rel="noopener">
+        更多文章
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M5 2.5 11 8l-6 5.5"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="contact">
+  <div class="container">
+    <h2 class="section-title reveal">找我？在这里</h2>
+
+    <div class="site-scroller-wrap" id="contactScrollerWrap">
+      <div class="site-scroller" id="contactScroller">
+        <a class="card icon-card site-card reveal" style="--d: .03s" href="mailto:Hydroxid_Hualin@outlook.com">
+          <div class="card-body">
+            <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="2.5" y="5" width="19" height="14" rx="2.5"/>
+              <path d="M3.5 6.5 12 13l8.5-6.5"/>
+            </svg>
+            <h3 class="card-title">邮箱</h3>
+            <span class="card-url">Hydroxid_Hualin@outlook.com</span>
+          </div>
+        </a>
+
+        <a class="card icon-card site-card reveal" style="--d: .06s" href="https://github.com/MSQY-H" target="_blank" rel="noopener">
+          <div class="card-body">
+            <svg class="card-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M12 .5C5.73.5.5 5.73.5 12a11.5 11.5 0 0 0 7.86 10.92c.58.1.79-.25.79-.55v-2.1c-3.2.7-3.88-1.4-3.88-1.4-.53-1.34-1.3-1.7-1.3-1.7-1.05-.72.08-.7.08-.7 1.16.08 1.78 1.2 1.78 1.2 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.12 3.05.74.81 1.18 1.84 1.18 3.1 0 4.43-2.69 5.41-5.25 5.69.41.36.78 1.06.78 2.14v3.17c0 .3.2.66.8.55A11.5 11.5 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5z"/>
+            </svg>
+            <h3 class="card-title">GitHub</h3>
+            <span class="card-url">github.com/MSQY-H</span>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <div class="site-paddlenav">
+      <button id="contactPrev" type="button" aria-label="上一组联系方式" disabled>
+        <svg viewBox="0 0 36 36" fill="currentColor" aria-hidden="true">
+          <path d="m20 25c-.3838 0-.7676-.1465-1.0605-.4395l-5.5-5.5c-.5859-.5854-.5859-1.5356 0-2.1211l5.5-5.5c.5859-.5859 1.5352-.5859 2.1211 0 .5859.5854.5859 1.5356 0 2.1211l-4.4395 4.4395 4.4395 4.4395c.5859.5854.5859 1.5356 0 2.1211-.293.293-.6768.4395-1.0605.4395z"/>
+        </svg>
+      </button>
+      <button id="contactNext" type="button" aria-label="下一组联系方式">
+        <svg viewBox="0 0 36 36" fill="currentColor" aria-hidden="true">
+          <path d="m22.5597 16.9375-5.5076-5.5c-.5854-.5854-1.5323-.5825-2.1157.0039-.5835.5869-.5815 1.5366.0039 2.1211l4.4438 4.4375-4.4438 4.4375c-.5854.5845-.5874 1.5342-.0039 2.1211.2922.2944.676.4414 1.0598.4414.3818 0 .7637-.1455 1.0559-.4375l5.5076-5.5c.2815-.2812.4403-.6636.4403-1.0625s-.1588-.7812-.4403-1.0625z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-logo reveal" id="footerLogo" style="--d: 0s">
+      <img
+        src="https://cdn.jsdelivr.net/gh/MSQY-H/homepage@main/assets/Studio.svg"
+        alt="Studio"
+        height="68"
+        loading="eager"
+      >
+    </div>
+    <p class="footer-copy reveal" style="--d: .06s">© 2026 MSQY. 保留所有权利。</p>
+    <p class="footer-copy reveal" style="--d: .12s">由 MSQY 与 DeepSeek 制作</p>
+    <div class="footer-links reveal" style="--d: .18s">
+      <a href="#top">回到顶部</a>
+      <a href="https://github.com/MSQY-H/homepage" target="_blank" rel="noopener">主题</a>
+    </div>
+  </div>
+</footer>
+
+<div class="detail-backdrop" id="detailBackdrop"></div>
+
+<div
+  class="detail-modal"
+  id="detailModal"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="detailTitle"
+  aria-hidden="true"
+>
+  <div class="detail-card" id="detailCard">
+    <button class="detail-close" id="detailClose" type="button" aria-label="关闭详情">
+      <svg viewBox="0 0 36 36" fill="currentColor" aria-hidden="true">
+        <path d="m20.1211 18 3.4395-3.4395c.5859-.5854.5859-1.5356 0-2.1211-.5859-.5859-1.5352-.5859-2.1211 0l-3.4395 3.4395-3.4395-3.4395c-.5859-.5859-1.5352-.5859-2.1211 0-.5859.5854-.5859 1.5356 0 2.1211l3.4395 3.4395-3.4395 3.4395c-.5859.5854-.5859 1.5356 0 2.1211.293.293.6768.4395 1.0605.4395s.7676-.1465 1.0605-.4395l3.4395-3.4395 3.4395 3.4395c.293.293.6768.4395 1.0605.4395s.7676-.1465 1.0605-.4395c.5859-.5854.5859-1.5356 0-2.1211l-3.4395-3.4395z"/>
+      </svg>
+    </button>
+
+    <div class="detail-icon" id="detailIcon" aria-hidden="true"></div>
+    <h3 class="detail-title" id="detailTitle"></h3>
+    <p class="detail-desc" id="detailDesc"></p>
+    <span class="detail-url" id="detailUrl"></span>
+
+    <a class="detail-open" id="detailOpen" href="#" target="_blank" rel="noopener">
+      打开站点
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M5 2.5 11 8l-6 5.5"/>
+      </svg>
+    </a>
+  </div>
+</div>
+
+<script>
+  (function () {
+    var revealObserver = null;
+
+    if ('IntersectionObserver' in window) {
+      revealObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    }
+
+    function observeReveals(container) {
+      var els = container.querySelectorAll('.reveal:not(.visible)');
+      if (revealObserver) {
+        Array.prototype.forEach.call(els, function (el) { revealObserver.observe(el); });
+      } else {
+        Array.prototype.forEach.call(els, function (el) { el.classList.add('visible'); });
+      }
+    }
+
+    /* 站点详情弹层 */
+    var prefersReducedMotion =
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    var detailBackdrop = document.getElementById('detailBackdrop');
+    var detailModal = document.getElementById('detailModal');
+    var detailCard = document.getElementById('detailCard');
+    var detailClose = document.getElementById('detailClose');
+    var detailIcon = document.getElementById('detailIcon');
+    var detailTitle = document.getElementById('detailTitle');
+    var detailDesc = document.getElementById('detailDesc');
+    var detailUrl = document.getElementById('detailUrl');
+    var detailOpen = document.getElementById('detailOpen');
+
+    var activeTrigger = null;
+    var isClosing = false;
+
+    function openDetail(card) {
+      if (!card || !detailModal || !detailCard || isClosing) return;
+      if (detailModal.classList.contains('visible')) return;
+
+      var iconSvg = card.querySelector('.card-icon');
+      var titleEl = card.querySelector('.card-title');
+      var urlEl = card.querySelector('.card-url');
+      var href = card.getAttribute('href') || '#';
+      var desc = card.getAttribute('data-desc') || '';
+
+      detailIcon.innerHTML = iconSvg ? iconSvg.outerHTML : '';
+      detailTitle.textContent = titleEl ? titleEl.textContent : '';
+      detailDesc.textContent = desc;
+      detailUrl.textContent = urlEl ? urlEl.textContent : '';
+      detailOpen.setAttribute('href', href);
+
+      activeTrigger = card;
+
+      document.body.style.overflow = 'hidden';
+      detailBackdrop.classList.add('visible');
+      detailModal.classList.add('visible');
+      detailModal.setAttribute('aria-hidden', 'false');
+
+      if (!prefersReducedMotion) {
+        var t = card.getBoundingClientRect();
+        var c = detailCard.getBoundingClientRect();
+
+        if (c.width > 0 && c.height > 0 && t.width > 0 && t.height > 0) {
+          var dx = (t.left + t.width / 2) - (c.left + c.width / 2);
+          var dy = (t.top + t.height / 2) - (c.top + c.height / 2);
+          var sx = t.width / c.width;
+          var sy = t.height / c.height;
+
+          detailCard.style.transition = 'none';
+          detailCard.style.transform =
+            'translate(' + dx + 'px, ' + dy + 'px) scale(' + sx + ', ' + sy + ')';
+          detailCard.style.opacity = '0';
+
+          void detailCard.offsetWidth;
+
+          detailCard.style.transition =
+            'transform 0.52s cubic-bezier(0.2, 0.9, 0.2, 1), opacity 0.3s ease';
+          detailCard.style.transform = 'translate(0, 0) scale(1, 1)';
+          detailCard.style.opacity = '1';
+        }
+      } else {
+        detailCard.style.opacity = '1';
+      }
+
+      window.requestAnimationFrame(function () {
+        detailClose.focus({ preventScroll: true });
+      });
+    }
+
+    function closeDetail() {
+      if (!detailModal || !detailCard) return;
+      if (!detailModal.classList.contains('visible') || isClosing) return;
+
+      isClosing = true;
+
+      if (!prefersReducedMotion) {
+        var t = activeTrigger ? activeTrigger.getBoundingClientRect() : null;
+        var c = detailCard.getBoundingClientRect();
+
+        if (t && c.width > 0 && c.height > 0) {
+          var dx = (t.left + t.width / 2) - (c.left + c.width / 2);
+          var dy = (t.top + t.height / 2) - (c.top + c.height / 2);
+          var sx = t.width / c.width;
+          var sy = t.height / c.height;
+
+          detailCard.style.transition =
+            'transform 0.42s cubic-bezier(0.4, 0, 0.6, 1), opacity 0.3s ease';
+          detailCard.style.transform =
+            'translate(' + dx + 'px, ' + dy + 'px) scale(' + sx + ', ' + sy + ')';
+          detailCard.style.opacity = '0';
+        } else {
+          detailCard.style.transition = 'opacity 0.2s ease';
+          detailCard.style.opacity = '0';
+        }
+      } else {
+        detailCard.style.opacity = '0';
+      }
+
+      detailBackdrop.classList.remove('visible');
+      detailModal.setAttribute('aria-hidden', 'true');
+
+      window.setTimeout(function () {
+        detailModal.classList.remove('visible');
+        detailCard.style.transition = '';
+        detailCard.style.transform = '';
+        detailCard.style.opacity = '';
+        document.body.style.overflow = '';
+        activeTrigger = null;
+        isClosing = false;
+      }, prefersReducedMotion ? 0 : 440);
+    }
+
+    Array.prototype.forEach.call(document.querySelectorAll('.site-card'), function (card) {
+      card.addEventListener('click', function (e) {
+        e.preventDefault();
+        openDetail(card);
+      });
+    });
+
+    Array.prototype.forEach.call(document.querySelectorAll('.site-add'), function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        openDetail(btn.closest('.site-card'));
+      });
+
+      btn.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          e.stopPropagation();
+          openDetail(btn.closest('.site-card'));
+        }
+      });
+    });
+
+    if (detailClose) {
+      detailClose.addEventListener('click', closeDetail);
+    }
+
+    if (detailBackdrop) {
+      detailBackdrop.addEventListener('click', closeDetail);
+    }
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && detailModal && detailModal.classList.contains('visible')) {
+        closeDetail();
+      }
+    });
+
+    /* 页脚 Studio logo：内联 SVG */
+    var SVG_URL = 'https://cdn.jsdelivr.net/gh/MSQY-H/homepage@main/assets/Studio.svg';
+    var logoHost = document.getElementById('footerLogo');
+
+    if (logoHost && window.fetch) {
+      fetch(SVG_URL, { mode: 'cors' })
+        .then(function (res) {
+          if (!res.ok) throw new Error('SVG 请求失败');
+          return res.text();
+        })
+        .then(function (text) {
+          var trimmed = text.trim();
+          if (trimmed.indexOf('<svg') !== 0) throw new Error('不是 SVG 内容');
+
+          logoHost.innerHTML = trimmed;
+
+          var svg = logoHost.querySelector('svg');
+          if (!svg) throw new Error('未找到 svg');
+
+          if (!svg.getAttribute('viewBox')) {
+            var w = svg.getAttribute('width');
+            var h = svg.getAttribute('height');
+            if (w && h) {
+              svg.setAttribute('viewBox', '0 0 ' + parseFloat(w) + ' ' + parseFloat(h));
+            }
+          }
+
+          svg.removeAttribute('width');
+          svg.removeAttribute('height');
+          svg.setAttribute('role', 'img');
+          svg.setAttribute('aria-label', 'Studio');
+          svg.setAttribute('focusable', 'false');
+        })
+        .catch(function () {
+          /* 内联失败时保留 img 作为兜底 */
+        });
+    }
+
+    /* 初始导航：移动端汉堡菜单 */
+    var toggle = document.getElementById('navToggle');
+    var menu = document.getElementById('navMenu');
+    var navBackdrop = document.getElementById('navBackdrop');
+
+    function playToggleAnimation(open) {
+      if (!toggle) return;
+
+      var suffix = open ? 'open' : 'close';
+      var ids = [
+        'nav-anim-line-bottom-' + suffix,
+        'nav-anim-line-top-' + suffix
+      ];
+
+      ids.forEach(function (id) {
+        var el = document.getElementById(id);
+        if (el && typeof el.beginElement === 'function') {
+          el.beginElement();
+        }
+      });
+    }
+
+    function closeMenu() {
+      if (!menu || !toggle) return;
+      var wasOpen = menu.classList.contains('open');
+
+      menu.classList.remove('open');
+      toggle.classList.remove('active');
+      toggle.setAttribute('aria-expanded', 'false');
+      toggle.setAttribute('aria-label', '打开菜单');
+      document.body.style.overflow = '';
+
+      if (navBackdrop) navBackdrop.classList.remove('visible');
+
+      if (wasOpen) playToggleAnimation(false);
+    }
+
+    if (toggle && menu) {
+      toggle.addEventListener('click', function (e) {
+        e.stopPropagation();
+
+        var isOpen = menu.classList.toggle('open');
+        toggle.classList.toggle('active', isOpen);
+        toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        toggle.setAttribute('aria-label', isOpen ? '关闭菜单' : '打开菜单');
+
+        document.body.style.overflow = isOpen ? 'hidden' : '';
+
+        if (navBackdrop) {
+          navBackdrop.classList.toggle('visible', isOpen);
+        }
+
+        playToggleAnimation(isOpen);
+      });
+
+      Array.prototype.forEach.call(menu.querySelectorAll('a'), function (link) {
+        link.addEventListener('click', closeMenu);
+      });
+
+      if (navBackdrop) {
+        navBackdrop.addEventListener('click', closeMenu);
+      }
+
+      document.addEventListener('click', function (e) {
+        if (!menu.classList.contains('open')) return;
+        if (menu.contains(e.target) || toggle.contains(e.target)) return;
+        closeMenu();
+      });
+
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') closeMenu();
+      });
+
+      window.addEventListener('resize', function () {
+        if (window.innerWidth > 600) closeMenu();
+      });
+    }
+
+    /* localnav */
+    var localnav = document.getElementById('localnav');
+    var localnavToggle = document.getElementById('localnavToggle');
+    var localnavMenu = document.getElementById('localnavMenu');
+    var localnavBackdrop = document.getElementById('localnavBackdrop');
+    var localnavLinks = localnavMenu
+      ? localnavMenu.querySelectorAll('a[data-section]')
+      : [];
+    var ticking = false;
+
+    function setLocalnavExpanded(expanded, focusTarget) {
+      if (!localnav || !localnavToggle) return;
+
+      localnav.classList.toggle('expanded', expanded);
+      localnavToggle.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+      localnavToggle.setAttribute('aria-label', expanded ? '收起本页目录' : '展开本页目录');
+
+      if (localnavBackdrop) {
+        localnavBackdrop.classList.toggle('visible', expanded);
+      }
+
+      if (expanded) {
+        var first = localnavMenu.querySelector('a');
+        if (first) {
+          window.requestAnimationFrame(function () {
+            first.focus({ preventScroll: true });
+          });
+        }
+      } else if (focusTarget === 'toggle') {
+        localnavToggle.focus({ preventScroll: true });
+      }
+    }
+
+    var sectionIds = ['projects', 'sites', 'articles', 'contact'];
+    var sectionEls = sectionIds
+      .map(function (id) { return document.getElementById(id); })
+      .filter(Boolean);
+
+    function updateCurrentSection() {
+      if (!localnavLinks.length) return;
+
+      var trigger = 68;
+      var current = null;
+
+      if (sectionEls.length) {
+        var firstRect = sectionEls[0].getBoundingClientRect();
+        if (firstRect.top > trigger) {
+          current = sectionEls[0].id;
+        }
+      }
+
+      if (!current) {
+        for (var i = 0; i < sectionEls.length; i++) {
+          var rect = sectionEls[i].getBoundingClientRect();
+          if (rect.top <= trigger && rect.bottom > trigger) {
+            current = sectionEls[i].id;
+            break;
+          }
+        }
+      }
+
+      if (!current && sectionEls.length) {
+        var last = sectionEls[sectionEls.length - 1];
+        if (last.getBoundingClientRect().bottom <= trigger) {
+          current = last.id;
+        }
+      }
+
+      Array.prototype.forEach.call(localnavLinks, function (a) {
+        a.classList.toggle(
+          'current',
+          a.getAttribute('data-section') === current
+        );
+      });
+    }
+
+    function onScroll() {
+      if (!ticking) {
+        window.requestAnimationFrame(function () {
+          if (window.scrollY > 80) {
+            localnav.classList.add('visible');
+          } else {
+            localnav.classList.remove('visible');
+            setLocalnavExpanded(false);
+          }
+          updateCurrentSection();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    if (localnavToggle && localnavMenu) {
+      localnavToggle.addEventListener('click', function (e) {
+        e.stopPropagation();
+        setLocalnavExpanded(!localnav.classList.contains('expanded'));
+      });
+
+      Array.prototype.forEach.call(localnavMenu.querySelectorAll('a'), function (link) {
+        link.addEventListener('click', function () {
+          setLocalnavExpanded(false);
+        });
+      });
+
+      if (localnavBackdrop) {
+        localnavBackdrop.addEventListener('click', function () {
+          setLocalnavExpanded(false);
+        });
+      }
+
+      document.addEventListener('click', function (e) {
+        if (!localnav.classList.contains('expanded')) return;
+        if (localnav.contains(e.target)) return;
+        setLocalnavExpanded(false);
+      });
+
+      document.addEventListener('keydown', function (e) {
+        if (e.key !== 'Escape') return;
+        if (!localnav.classList.contains('expanded')) return;
+        setLocalnavExpanded(false, 'toggle');
+      });
+    }
+
+    /* 头像兜底 */
+    var avatar = document.querySelector('.avatar');
+    if (avatar) {
+      avatar.addEventListener('error', function () {
+        var initial = document.createElement('div');
+        initial.className = 'avatar';
+        initial.style.display = 'flex';
+        initial.style.alignItems = 'center';
+        initial.style.justifyContent = 'center';
+        initial.style.fontSize = '42px';
+        initial.style.fontWeight = '600';
+        initial.style.color = 'var(--text-secondary)';
+        initial.textContent = 'M';
+        avatar.parentNode.replaceChild(initial, avatar);
+      });
+    }
+
+    /* 横向滚动 */
+    function initScroller(scrollerId, wrapId, prevId, nextId) {
+      var scroller = document.getElementById(scrollerId);
+      var wrap = document.getElementById(wrapId);
+      var prevBtn = document.getElementById(prevId);
+      var nextBtn = document.getElementById(nextId);
+
+      if (!scroller || !prevBtn || !nextBtn) return;
+
+      function updatePaddles() {
+        var maxScroll = scroller.scrollWidth - scroller.clientWidth;
+        var atStart = scroller.scrollLeft <= 2;
+        var atEnd = scroller.scrollLeft >= maxScroll - 2;
+
+        prevBtn.disabled = atStart;
+        nextBtn.disabled = atEnd;
+
+        if (wrap) {
+          wrap.classList.toggle('at-start', atStart);
+          wrap.classList.toggle('at-end', atEnd);
+        }
+      }
+
+      function scrollByStep(dir) {
+        var card = scroller.querySelector('.site-card');
+        var gap = parseFloat(getComputedStyle(scroller).columnGap) || 16;
+        var step = card ? card.getBoundingClientRect().width + gap : 300;
+        scroller.scrollBy({ left: dir * step, behavior: 'smooth' });
+      }
+
+      prevBtn.addEventListener('click', function () { scrollByStep(-1); });
+      nextBtn.addEventListener('click', function () { scrollByStep(1); });
+
+      scroller.addEventListener('scroll', updatePaddles, { passive: true });
+      window.addEventListener('resize', updatePaddles);
+
+      if ('ResizeObserver' in window) {
+        new ResizeObserver(updatePaddles).observe(scroller);
+      }
+      window.addEventListener('load', updatePaddles);
+
+      updatePaddles();
+    }
+
+    initScroller('siteScroller', 'siteScrollerWrap', 'sitePrev', 'siteNext');
+    initScroller('contactScroller', 'contactScrollerWrap', 'contactPrev', 'contactNext');
+
+    /* 文章 RSS */
+    function timeAgo(dateString) {
+      var now = new Date();
+      var date = new Date(dateString);
+      var diff = Math.floor((now - date) / 1000);
+
+      if (isNaN(diff) || diff < 0) return '刚刚';
+      if (diff < 60) return '刚刚';
+      if (diff < 3600) return Math.floor(diff / 60) + ' 分钟前';
+      if (diff < 86400) return Math.floor(diff / 3600) + ' 小时前';
+      if (diff < 86400 * 30) return Math.floor(diff / 86400) + ' 天前';
+
+      var y = date.getFullYear();
+      var m = String(date.getMonth() + 1).padStart(2, '0');
+      return y + '.' + m;
+    }
+
+    function escapeHtml(str) {
+      var div = document.createElement('div');
+      div.appendChild(document.createTextNode(str));
+      return div.innerHTML;
+    }
+
+    var RSS_URL = 'https://www.msqy.cc.cd/rss.xml';
+    var RSS2JSON_API = 'https://api.rss2json.com/v1/api.json?rss_url=' +
+      encodeURIComponent(RSS_URL) + '&count=5';
+    var articleList = document.getElementById('articleList');
+
+    function renderArticles(items) {
+      if (!articleList) return;
+
+      if (!items.length) {
+        articleList.innerHTML =
+          '<div class="news-empty">RSS 源里还没有文章。' +
+          '<br><a href="' + RSS_URL + '" target="_blank" rel="noopener">直接打开 RSS 源 →</a></div>';
+        return;
+      }
+
+      var html = items.slice(0, 5).map(function (item, i) {
+        var title = item.title || '无标题';
+        var link = item.link || '#';
+        var pubDate = item.pubDate || '';
+        var categories = item.categories || [];
+        var category = categories.length ? categories[0] : '文章';
+        var delay = (i * 0.05).toFixed(2) + 's';
+
+        return (
+          '<a class="news-row reveal" style="--d: ' + delay + '" href="' + escapeHtml(link) + '" target="_blank" rel="noopener">' +
+            '<span class="news-category">' + escapeHtml(category) + '</span>' +
+            '<h3 class="news-title">' + escapeHtml(title) + '</h3>' +
+            '<span class="news-date">' + timeAgo(pubDate) + '</span>' +
+          '</a>'
+        );
+      }).join('');
+
+      articleList.innerHTML = html;
+      observeReveals(articleList);
+    }
+
+    function loadArticles() {
+      if (!articleList) return;
+
+      var cacheKey = 'rss_articles_msqy';
+      try {
+        var cached = localStorage.getItem(cacheKey);
+        if (cached) {
+          var parsed = JSON.parse(cached);
+          if (Date.now() - parsed.time < 15 * 60 * 1000) {
+            renderArticles(parsed.data);
+            return;
+          }
+        }
+      } catch (e) { /* 忽略 */ }
+
+      fetch(RSS2JSON_API)
+        .then(function (res) {
+          if (!res.ok) throw new Error('rss2json 请求失败（' + res.status + '）');
+          return res.json();
+        })
+        .then(function (data) {
+          if (data.status !== 'ok' || !data.items) throw new Error('RSS 解析失败');
+          renderArticles(data.items);
+          try {
+            localStorage.setItem(cacheKey, JSON.stringify({ time: Date.now(), data: data.items }));
+          } catch (e) { /* 忽略 */ }
+        })
+        .catch(function () {
+          if (!articleList) return;
+          articleList.innerHTML =
+            '<div class="news-empty">文章加载失败。' +
+            '<br><a href="' + RSS_URL + '" target="_blank" rel="noopener">直接打开 RSS 源 →</a></div>';
+        });
+    }
+
+    observeReveals(document);
+    loadArticles();
+  })();
+</script>
+
+</body>
+</html>
